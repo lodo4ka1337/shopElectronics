@@ -32,13 +32,9 @@ databaseChangeLog:
               - column:
                   name: creation_date
                   type: timestamp
-                  constraints:
-                    nullable: false
               - column:
                   name: last_update_date
                   type: timestamp
-                  constraints:
-                    nullable: false
 
   - changeSet:
       id: 2
@@ -85,10 +81,6 @@ databaseChangeLog:
               - column:
                   name: date_of_placing
                   type: timestamp
-                  constraints:
-                    nullable: false
               - column:
                   name: last_update_date
                   type: timestamp
-                  constraints:
-                    nullable: false

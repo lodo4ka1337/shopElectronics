@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,5 +24,16 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     @Override
     public List<Showcase> getAllShowcases() {
         return showcaseRepository.findAll();
+    }
+
+    @Override
+    public Optional<Showcase> getShowcaseById(UUID id) {
+        return showcaseRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public void addShowcase(Showcase showcase) {
+        showcaseRepository.save(showcase);
     }
 }
