@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yaml
+  - changeSet:
+      id: 1
+      author: lodo4ka
+      changes:
+        - createTable:
+            tableName: showcases
+            columns:
+              - column:
+                  name: id
+                  type: char(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: showcase_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(100)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_update_date
+                  type: datetime
+                  constraints:
+                    nullable: false
