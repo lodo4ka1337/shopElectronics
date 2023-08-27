@@ -31,11 +31,11 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: creation_date
-                  type: datetime
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: last_update_date
-                  type: datetime
+                  type: timestamp
                   constraints:
                     nullable: false
