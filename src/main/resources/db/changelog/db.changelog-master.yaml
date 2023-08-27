@@ -9,12 +9,12 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: char(36)
+                  type: UUID
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: showcase_name
+                  name: name
                   type: varchar(50)
                   constraints:
                     nullable: false
@@ -31,6 +31,59 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: creation_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_update_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: lodo4ka
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: showcase_id
+                  type: UUID
+                  constraints:
+                    unique: true
+                    nullable: false
+                    foreignKeyName: "showcase_id_fk"
+                    references: showcases(id)
+              - column:
+                  name: position_on_showcase
+                  type: int
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: date_of_placing
                   type: timestamp
                   constraints:
                     nullable: false
