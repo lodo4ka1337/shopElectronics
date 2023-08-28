@@ -30,6 +30,11 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.findAllProductsByShowcaseIdAndType(id, type);
     }
 
+    @Override
+    public List<Product> getAllProductsOfShowcaseWithPriceBetween(UUID id, double price1, double price2) {
+        return productRepository.findAllProductsByShowcaseIdAndPriceBetween(id, price1, price2);
+    }
+
     @Transactional
     @Override
     public void addProduct(Product product) {

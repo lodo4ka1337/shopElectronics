@@ -31,6 +31,11 @@ public class ProductController {
         return productService.getAllProductsOfShowcaseFilteredByType(id, type);
     }
 
+    @GetMapping("/get/price")
+    List<Product> getAllProductsOfShowcaseFilteredByPriceBetween(@RequestParam(value = "showcaseId") UUID id, @RequestParam(value = "price1") double price1, @RequestParam(value = "price2") double price2) {
+        return productService.getAllProductsOfShowcaseWithPriceBetween(id, price1, price2);
+    }
+
     @PostMapping("/add")
     void addProduct(@RequestBody Product product) {
         productService.addProduct(product);

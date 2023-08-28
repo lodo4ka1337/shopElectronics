@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     List<Product> findAllProductsByShowcaseId(UUID id);
 
     List<Product> findAllProductsByShowcaseIdAndType(UUID id, String type);
+
+    List<Product> findAllProductsByShowcaseIdAndPriceBetween(UUID id, double price1, double price2);
 }

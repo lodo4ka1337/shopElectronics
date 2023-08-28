@@ -11,6 +11,8 @@ public interface ProductService {
 
     List<Product> getAllProductsOfShowcaseFilteredByType(UUID id, String type);
 
+    List<Product> getAllProductsOfShowcaseWithPriceBetween(UUID id, double price1, double price2);
+
     void addProduct(Product product);
 
     void deleteProduct(UUID id);
