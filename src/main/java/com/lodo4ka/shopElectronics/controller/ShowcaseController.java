@@ -5,6 +5,7 @@ import com.lodo4ka.shopElectronics.persistance.service.ShowcaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +26,21 @@ public class ShowcaseController {
     @GetMapping("/get/all")
     public List<Showcase> getAllShowcases() {
         return showcaseService.getAllShowcases();
+    }
+
+    @GetMapping("/get/type/{type}")
+    public List<Showcase> getAllShowcasesFilteredByType(@PathVariable String type) {
+        return showcaseService.getAllShowcasesFilteredByType(type);
+    }
+
+    @GetMapping("/get/address/{address}")
+    public List<Showcase> getAllShowcasesFilteredByAddress(@PathVariable String address) {
+        return showcaseService.getAllShowcasesFilteredByAddress(address);
+    }
+
+    @GetMapping("/get/date")
+    public List<Showcase> getAllShowcasesCreatedBetween(@RequestParam Date date1, @RequestParam Date date2) {
+        return showcaseService.getAllShowcasesCreatedBetween(date1, date2);
     }
 
     @PostMapping("/add")

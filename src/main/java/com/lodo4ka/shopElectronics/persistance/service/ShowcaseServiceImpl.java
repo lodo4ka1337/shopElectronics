@@ -3,9 +3,11 @@ package com.lodo4ka.shopElectronics.persistance.service;
 import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 import com.lodo4ka.shopElectronics.persistance.repository.ShowcaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,5 +50,21 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     public void updateShowcase(Showcase showcase) {
         showcaseRepository.save(showcase);
     }
+
+    @Override
+    public List<Showcase> getAllShowcasesFilteredByType(String type) {
+        return showcaseRepository.getAllShowcasesByType(type);
+    }
+
+    @Override
+    public List<Showcase> getAllShowcasesFilteredByAddress(String address) {
+        return showcaseRepository.getAllShowcasesByAddress(address);
+    }
+
+    @Override
+    public List<Showcase> getAllShowcasesCreatedBetween(Date date1, Date date2) {
+        return showcaseRepository.getShowcasesByCreationDateBetween(date1, date2);
+    }
+
 
 }

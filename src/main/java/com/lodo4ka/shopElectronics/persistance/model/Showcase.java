@@ -34,10 +34,10 @@ public class Showcase implements Serializable {
     private String type;
 
     @Column(name = "creation_date", nullable = false)
-    private Date creation_date;
+    private Date creationDate;
 
     @Column(name = "last_update_date")
-    private Date last_update_date;
+    private Date lastUpdate;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "showcase_id", updatable = false)
@@ -86,19 +86,19 @@ public class Showcase implements Serializable {
         this.type = type;
     }
 
-    public Date getCreation_date() {
-        return creation_date;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreation_date(Date creation_date) {
-        this.creation_date = creation_date;
+    public void setCreationDate(Date creation_date) {
+        this.creationDate = creation_date;
     }
 
-    public Date getLast_update_date() {
-        return last_update_date;
+    public Date getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setLast_update_date(Date last_update_date) {
-        this.last_update_date = last_update_date;
+    public void setLastUpdate(Date last_update_date) {
+        this.lastUpdate = last_update_date;
     }
 }

@@ -32,16 +32,16 @@ public class Product implements Serializable {
     private double price;
 
     @Column(name = "showcase_id", nullable = false)
-    private UUID showcase_id;
+    private UUID showcaseId;
 
-    @Column(name = "position_on_showcase", unique = true ,nullable = false)
-    private int position_on_showcase;
+    @Column(name = "position_on_showcase", nullable = false)
+    private int positionOnShowcase;
 
     @Column(name = "date_of_placing")
-    private Date date_of_placing;
+    private Date dateOfPlacing;
 
     @Column(name = "last_update_date")
-    private Date last_update_date;
+    private Date lastUpdateDate;
 
     public Product() {
     }
@@ -78,36 +78,36 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public UUID getShowcase_id() {
-        return showcase_id;
+    public UUID getShowcaseId() {
+        return showcaseId;
     }
 
-    public void setShowcase_id(UUID showcase_id) {
-        this.showcase_id = showcase_id;
+    public void setShowcaseId(UUID showcase_id) {
+        this.showcaseId = showcase_id;
     }
 
-    public int getPosition_on_showcase() {
-        return position_on_showcase;
+    public int getPositionOnShowcase() {
+        return positionOnShowcase;
     }
 
-    public void setPosition_on_showcase(int position_on_showcase) {
-        this.position_on_showcase = position_on_showcase;
+    public void setPositionOnShowcase(int position_on_showcase) {
+        this.positionOnShowcase = position_on_showcase;
     }
 
-    public Date getDate_of_placing() {
-        return date_of_placing;
+    public Date getDateOfPlacing() {
+        return dateOfPlacing;
     }
 
-    public void setDate_of_placing(Date date_of_placing) {
-        this.date_of_placing = date_of_placing;
+    public void setDateOfPlacing(Date date_of_placing) {
+        this.dateOfPlacing = date_of_placing;
     }
 
-    public Date getLast_update_date() {
-        return last_update_date;
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
     }
 
-    public void setLast_update_date(Date last_update_date) {
-        this.last_update_date = last_update_date;
+    public void setLastUpdateDate(Date last_update_date) {
+        this.lastUpdateDate = last_update_date;
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,4 +30,17 @@ public class ProductServiceImpl implements ProductService{
     public void addProduct(Product product) {
         productRepository.save(product);
     }
+
+    @Transactional
+    @Override
+    public void deleteProductById(UUID id) {
+        productRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public void updateProduct(Product product) {
+        productRepository.save(product);
+    }
+
 }

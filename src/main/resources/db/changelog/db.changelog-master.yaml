@@ -78,7 +78,6 @@ databaseChangeLog:
                   name: position_on_showcase
                   type: int
                   constraints:
-                    unique: true
                     nullable: false
               - column:
                   name: date_of_placing

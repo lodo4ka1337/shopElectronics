@@ -2,6 +2,7 @@ package com.lodo4ka.shopElectronics.persistance.service;
 
 import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,4 +17,10 @@ public interface ShowcaseService {
     void deleteShowcaseById(UUID id);
 
     void updateShowcase(Showcase showcase);
+
+    List<Showcase> getAllShowcasesFilteredByType(String type);
+
+    List<Showcase> getAllShowcasesFilteredByAddress(String address);
+
+    List<Showcase> getAllShowcasesCreatedBetween(Date date1, Date date2);
 }
