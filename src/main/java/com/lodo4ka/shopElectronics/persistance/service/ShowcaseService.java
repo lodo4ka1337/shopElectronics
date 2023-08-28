@@ -12,4 +12,8 @@ public interface ShowcaseService {
     Optional<Showcase> getShowcaseById(UUID id);
 
     void addShowcase(Showcase showcase);
+
+    void deleteShowcaseById(UUID id);
+
+    void updateShowcase(Showcase showcase);
 }

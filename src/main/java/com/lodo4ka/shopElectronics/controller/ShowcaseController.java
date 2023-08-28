@@ -36,4 +36,14 @@ public class ShowcaseController {
     public void addShowcase(@RequestBody Showcase showcase) {
         showcaseService.addShowcase(showcase);
     }
+
+    @PutMapping("/update")
+    public void updateShowcase(@RequestBody Showcase showcase) {
+        showcaseService.updateShowcase(showcase);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteShowcaseById(@PathVariable("id") UUID id) {
+        showcaseService.deleteShowcaseById(id);
+    }
 }

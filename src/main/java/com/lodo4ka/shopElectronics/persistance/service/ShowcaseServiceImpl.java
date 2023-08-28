@@ -36,4 +36,17 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     public void addShowcase(Showcase showcase) {
         showcaseRepository.save(showcase);
     }
+
+    @Override
+    @Transactional
+    public void deleteShowcaseById(UUID id) {
+        showcaseRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public void updateShowcase(Showcase showcase) {
+        showcaseRepository.save(showcase);
+    }
+
 }
