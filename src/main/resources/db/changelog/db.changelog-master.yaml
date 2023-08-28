@@ -31,10 +31,10 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: creation_date
-                  type: timestamp
+                  type: date
               - column:
                   name: last_update_date
-                  type: timestamp
+                  type: date
 
   - changeSet:
       id: 2
@@ -80,7 +80,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: date_of_placing
-                  type: timestamp
+                  type: date
               - column:
                   name: last_update_date
-                  type: timestamp
+                  type: date

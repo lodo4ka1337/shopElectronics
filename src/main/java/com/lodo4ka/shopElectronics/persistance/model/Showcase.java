@@ -5,9 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.security.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
+
 import java.util.UUID;
 
 
@@ -37,18 +36,10 @@ public class Showcase implements Serializable {
     private Date creation_date;
 
     @Column(name = "last_update_date")
-    private  Date last_update_date;
+    private Date last_update_date;
 
     public Showcase() {
     }
-
-/*    public Showcase(String name, String address, String type, Timestamp creation_date, Timestamp last_update_date) {
-        this.name = name;
-        this.address = address;
-        this.type = type;
-        this.creation_date = creation_date;
-        this.last_update_date = last_update_date;
-    }*/
 
     public UUID getId() {
         return id;
@@ -82,7 +73,7 @@ public class Showcase implements Serializable {
         this.type = type;
     }
 
-    public Date getCreation_date() {
+    public java.util.Date getCreation_date() {
         return creation_date;
     }
 
@@ -90,7 +81,7 @@ public class Showcase implements Serializable {
         this.creation_date = creation_date;
     }
 
-    public Date getLast_update_date() {
+    public java.util.Date getLast_update_date() {
         return last_update_date;
     }
 

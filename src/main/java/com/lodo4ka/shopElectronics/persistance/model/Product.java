@@ -5,8 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.security.Timestamp;
-import java.util.Date;
+import java.sql.Date;
+
 import java.util.UUID;
 
 @Entity
@@ -38,10 +38,10 @@ public class Product implements Serializable {
     private int position_on_showcase;
 
     @Column(name = "date_of_placing")
-    private Timestamp date_of_placing;
+    private Date date_of_placing;
 
     @Column(name = "last_update_date")
-    private Timestamp last_update_date;
+    private Date last_update_date;
 
     public Product() {
     }
@@ -94,19 +94,19 @@ public class Product implements Serializable {
         this.position_on_showcase = position_on_showcase;
     }
 
-    public Timestamp getDate_of_placing() {
+    public Date getDate_of_placing() {
         return date_of_placing;
     }
 
-    public void setDate_of_placing(Timestamp date_of_placing) {
+    public void setDate_of_placing(Date date_of_placing) {
         this.date_of_placing = date_of_placing;
     }
 
-    public Timestamp getLast_update_date() {
+    public Date getLast_update_date() {
         return last_update_date;
     }
 
-    public void setLast_update_date(Timestamp last_update_date) {
+    public void setLast_update_date(Date last_update_date) {
         this.last_update_date = last_update_date;
     }
 
