@@ -27,11 +27,6 @@ public class ShowcaseController {
         return showcaseService.getAllShowcases();
     }
 
-    @GetMapping("/get/{id}")
-    public Optional<Showcase> getShowcaseById(@PathVariable("id") UUID id) {
-        return showcaseService.getShowcaseById(id);
-    }
-
     @PostMapping("/add")
     public void addShowcase(@RequestBody Showcase showcase) {
         showcaseService.addShowcase(showcase);

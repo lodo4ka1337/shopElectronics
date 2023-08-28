@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import java.sql.Date;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -32,11 +33,23 @@ public class Showcase implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", nullable = false)
     private Date creation_date;
 
     @Column(name = "last_update_date")
     private Date last_update_date;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "showcase_id", updatable = false)
+    private List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public Showcase() {
     }
