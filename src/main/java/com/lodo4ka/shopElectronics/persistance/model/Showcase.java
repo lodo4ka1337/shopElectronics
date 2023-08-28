@@ -43,14 +43,6 @@ public class Showcase implements Serializable {
     @JoinColumn(name = "showcase_id", updatable = false)
     private List<Product> products;
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public Showcase() {
     }
 

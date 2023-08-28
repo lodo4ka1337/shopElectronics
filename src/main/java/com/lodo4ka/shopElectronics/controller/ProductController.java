@@ -21,9 +21,14 @@ public class ProductController {
     public ProductController() {
     }
 
-    @GetMapping("/get/all")
-    List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    @GetMapping("/get/{id}")
+    List<Product> getAllProductsOfShowcase(@PathVariable("id") UUID id) {
+        return productService.getAllProductsOfShowcase(id);
+    }
+
+    @GetMapping("/get/type")
+    List<Product> getAllProductsOfShowcaseFilteredByType(@RequestParam(value = "showcaseId") UUID id, @RequestParam(value = "type") String type) {
+        return productService.getAllProductsOfShowcaseFilteredByType(id, type);
     }
 
     @PostMapping("/add")
@@ -32,8 +37,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    void deleteProductById(@PathVariable UUID id) {
-        productService.deleteProductById(id);
+    void deleteProduct(@PathVariable UUID id) {
+        productService.deleteProduct(id);
     }
 
     @PutMapping("/update")

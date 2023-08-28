@@ -29,11 +29,6 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     }
 
     @Override
-    public Optional<Showcase> getShowcaseById(UUID id) {
-        return showcaseRepository.findById(id);
-    }
-
-    @Override
     @Transactional
     public void addShowcase(Showcase showcase) {
         showcaseRepository.save(showcase);
@@ -65,6 +60,5 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     public List<Showcase> getAllShowcasesCreatedBetween(Date date1, Date date2) {
         return showcaseRepository.getShowcasesByCreationDateBetween(date1, date2);
     }
-
 
 }

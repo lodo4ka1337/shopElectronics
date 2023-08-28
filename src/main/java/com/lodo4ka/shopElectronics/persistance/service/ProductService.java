@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductService {
-    List<Product> getAllProducts();
+    List<Product> getAllProductsOfShowcase(UUID id);
+
+    List<Product> getAllProductsOfShowcaseFilteredByType(UUID id, String type);
 
     void addProduct(Product product);
 
-    void deleteProductById(UUID id);
+    void deleteProduct(UUID id);
 
     void updateProduct(Product product);
 }

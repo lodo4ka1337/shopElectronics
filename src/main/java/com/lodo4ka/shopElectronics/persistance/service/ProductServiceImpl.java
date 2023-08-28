@@ -21,8 +21,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getAllProductsOfShowcase(UUID id) {
+        return productRepository.findAllProductsByShowcaseId(id);
+    }
+
+    @Override
+    public List<Product> getAllProductsOfShowcaseFilteredByType(UUID id, String type) {
+        return productRepository.findAllProductsByShowcaseIdAndType(id, type);
     }
 
     @Transactional
@@ -33,7 +38,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Transactional
     @Override
-    public void deleteProductById(UUID id) {
+    public void deleteProduct(UUID id) {
         productRepository.deleteById(id);
     }
 

@@ -1,5 +1,6 @@
 package com.lodo4ka.shopElectronics.persistance.service;
 
+import com.lodo4ka.shopElectronics.persistance.model.Product;
 import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 
 import java.sql.Date;
@@ -9,8 +10,6 @@ import java.util.UUID;
 
 public interface ShowcaseService {
     List<Showcase> getAllShowcases();
-
-    Optional<Showcase> getShowcaseById(UUID id);
 
     void addShowcase(Showcase showcase);
 

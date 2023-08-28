@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/showcases")
 public class ShowcaseController {
     private ShowcaseService showcaseService;
 
@@ -23,37 +22,37 @@ public class ShowcaseController {
     public ShowcaseController() {
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/showcases/get/all")
     public List<Showcase> getAllShowcases() {
         return showcaseService.getAllShowcases();
     }
 
-    @GetMapping("/get/type/{type}")
+    @GetMapping("/showcases/get/type/{type}")
     public List<Showcase> getAllShowcasesFilteredByType(@PathVariable String type) {
         return showcaseService.getAllShowcasesFilteredByType(type);
     }
 
-    @GetMapping("/get/address/{address}")
+    @GetMapping("/showcases/get/address/{address}")
     public List<Showcase> getAllShowcasesFilteredByAddress(@PathVariable String address) {
         return showcaseService.getAllShowcasesFilteredByAddress(address);
     }
 
-    @GetMapping("/get/date")
-    public List<Showcase> getAllShowcasesCreatedBetween(@RequestParam Date date1, @RequestParam Date date2) {
+    @GetMapping("/showcases/get/date_period")
+    public List<Showcase> getAllShowcasesCreatedBetween(@RequestParam(value = "date1") Date date1, @RequestParam(value = "date2") Date date2) {
         return showcaseService.getAllShowcasesCreatedBetween(date1, date2);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/showcases/add")
     public void addShowcase(@RequestBody Showcase showcase) {
         showcaseService.addShowcase(showcase);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/showcases/update")
     public void updateShowcase(@RequestBody Showcase showcase) {
         showcaseService.updateShowcase(showcase);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/showcases/delete/{id}")
     public void deleteShowcaseById(@PathVariable("id") UUID id) {
         showcaseService.deleteShowcaseById(id);
     }
