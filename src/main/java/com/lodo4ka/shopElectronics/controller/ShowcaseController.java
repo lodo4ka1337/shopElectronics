@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/showcases")
 public class ShowcaseController {
     private ShowcaseService showcaseService;
 
@@ -21,18 +22,18 @@ public class ShowcaseController {
     public ShowcaseController() {
     }
 
-    @GetMapping("/showcases")
+    @GetMapping("/get/all")
     public List<Showcase> getAllShowcases() {
         return showcaseService.getAllShowcases();
     }
 
-    @GetMapping("/showcases/{id}")
+    @GetMapping("/get/{id}")
     public Optional<Showcase> getShowcaseById(@PathVariable("id") UUID id) {
         return showcaseService.getShowcaseById(id);
     }
 
-    @PostMapping("/showcases/add")
-    public void addShowcase(@ModelAttribute Showcase showcase) {
+    @PostMapping("/add")
+    public void addShowcase(@RequestBody Showcase showcase) {
         showcaseService.addShowcase(showcase);
     }
 }

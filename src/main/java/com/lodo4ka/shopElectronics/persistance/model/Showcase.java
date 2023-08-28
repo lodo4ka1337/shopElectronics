@@ -73,7 +73,7 @@ public class Showcase implements Serializable {
         this.type = type;
     }
 
-    public java.util.Date getCreation_date() {
+    public Date getCreation_date() {
         return creation_date;
     }
 
@@ -81,7 +81,7 @@ public class Showcase implements Serializable {
         this.creation_date = creation_date;
     }
 
-    public java.util.Date getLast_update_date() {
+    public Date getLast_update_date() {
         return last_update_date;
     }
 
