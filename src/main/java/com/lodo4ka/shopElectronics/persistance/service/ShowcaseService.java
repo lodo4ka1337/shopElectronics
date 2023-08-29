@@ -1,6 +1,5 @@
 package com.lodo4ka.shopElectronics.persistance.service;
 
-import com.lodo4ka.shopElectronics.persistance.model.Product;
 import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 
 import java.sql.Date;
@@ -24,5 +23,6 @@ public interface ShowcaseService {
 
     List<Showcase> getAllShowcasesActualizedBetween(Date date1, Date date2);
 
-    void actualizeShowcase(Showcase showcase);
+    void actualizeShowcaseById(UUID id);
+
 }

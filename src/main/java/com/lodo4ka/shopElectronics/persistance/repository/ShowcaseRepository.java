@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface ShowcaseRepository extends JpaRepository<Showcase, UUID> {
 
+    Showcase getShowcaseById(UUID id);
     List<Showcase> getAllShowcasesByType(String type);
 
     List<Showcase> getAllShowcasesByAddress(String address);

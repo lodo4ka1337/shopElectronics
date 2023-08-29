@@ -1,7 +1,6 @@
 package com.lodo4ka.shopElectronics.persistance.service;
 
 import com.lodo4ka.shopElectronics.persistance.model.Product;
-import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,4 +19,5 @@ public interface ProductService {
     void updateProduct(Product product);
 
     void actualizeProduct(Product product);
+
 }

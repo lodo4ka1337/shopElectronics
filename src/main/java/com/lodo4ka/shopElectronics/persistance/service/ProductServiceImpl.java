@@ -1,7 +1,6 @@
 package com.lodo4ka.shopElectronics.persistance.service;
 
 import com.lodo4ka.shopElectronics.persistance.model.Product;
-import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 import com.lodo4ka.shopElectronics.persistance.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Service
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService{
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
@@ -39,7 +38,6 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     @Override
     public void addProduct(Product product) {
-        actualizeProduct(product);
         productRepository.save(product);
     }
 
@@ -56,10 +54,10 @@ public class ProductServiceImpl implements ProductService{
         productRepository.save(product);
     }
 
+    @Transactional
     @Override
     public void actualizeProduct(Product product) {
         product.setLastUpdate(new Date(new java.util.Date().getTime()));
-
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 public class ShowcaseServiceImpl implements ShowcaseService {
 
-    private ShowcaseRepository showcaseRepository;
+    private final ShowcaseRepository showcaseRepository;
 
     @Autowired
     public ShowcaseServiceImpl(ShowcaseRepository showcaseRepository) {
@@ -24,26 +24,6 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     @Override
     public List<Showcase> getAllShowcases() {
         return showcaseRepository.findAll();
-    }
-
-    @Override
-    @Transactional
-    public void addShowcase(Showcase showcase) {
-        actualizeShowcase(showcase);
-        showcaseRepository.save(showcase);
-    }
-
-    @Override
-    @Transactional
-    public void deleteShowcaseById(UUID id) {
-        showcaseRepository.deleteById(id);
-    }
-
-    @Transactional
-    @Override
-    public void updateShowcase(Showcase showcase) {
-        actualizeShowcase(showcase);
-        showcaseRepository.save(showcase);
     }
 
     @Override
@@ -66,9 +46,29 @@ public class ShowcaseServiceImpl implements ShowcaseService {
         return showcaseRepository.getShowcasesByLastUpdateBetween(date1, date2);
     }
 
+    @Override
+    @Transactional
+    public void addShowcase(Showcase showcase) {
+        showcaseRepository.save(showcase);
+    }
+
+    @Override
+    @Transactional
+    public void deleteShowcaseById(UUID id) {
+        showcaseRepository.deleteById(id);
+    }
+
     @Transactional
     @Override
-    public void actualizeShowcase(Showcase showcase) {
+    public void updateShowcase(Showcase showcase) {
+        actualizeShowcaseById(showcase.getId());
+        showcaseRepository.save(showcase);
+    }
+
+    @Transactional
+    @Override
+    public void actualizeShowcaseById(UUID id) {
+        Showcase showcase = showcaseRepository.getShowcaseById(id);
         showcase.setLastUpdate(new Date(new java.util.Date().getTime()));
     }
 

@@ -81,6 +81,8 @@ databaseChangeLog:
               - column:
                   name: date_of_placing
                   type: date
+                  constraints:
+                    nullable: false
               - column:
                   name: last_update_date
                   type: date

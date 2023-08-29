@@ -36,7 +36,7 @@ public class Showcase implements Serializable {
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
 
-    @Column(name = "last_update_date")
+    @Column(name = "last_update_date", insertable = false)
     private Date lastUpdate;
 
     @OneToMany(cascade = CascadeType.ALL)
