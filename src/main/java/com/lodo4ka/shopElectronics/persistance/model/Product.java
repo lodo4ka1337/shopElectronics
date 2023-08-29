@@ -37,10 +37,10 @@ public class Product implements Serializable {
     @Column(name = "position_on_showcase", nullable = false)
     private int positionOnShowcase;
 
-    @Column(name = "date_of_placing")
+    @Column(name = "date_of_placing",insertable = false)
     private Date dateOfPlacing;
 
-    @Column(name = "last_update_date")
+    @Column(name = "last_update_date", insertable = false)
     private Date lastUpdate;
 
     public Product() {

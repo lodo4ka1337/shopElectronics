@@ -51,6 +51,9 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     @Transactional
     public void addShowcase(Showcase showcase) {
         showcaseRepository.save(showcase);
+        showcaseRepository.getShowcaseById(showcase.getId()).
+                setCreationDate(new Date(new java.util.Date().getTime()));
+        actualizeShowcaseById(showcase.getId());
     }
 
     @Override

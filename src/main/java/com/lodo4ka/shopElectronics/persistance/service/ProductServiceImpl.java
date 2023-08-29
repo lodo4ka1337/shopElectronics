@@ -40,6 +40,9 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void addProduct(Product product) {
         productRepository.save(product);
+        productRepository.getProductById(product.getId()).
+                setDateOfPlacing(new Date(new java.util.Date().getTime()));
+        actualizeProduct(product);
     }
 
     @Transactional

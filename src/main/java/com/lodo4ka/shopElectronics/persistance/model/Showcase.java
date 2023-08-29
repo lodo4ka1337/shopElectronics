@@ -33,7 +33,7 @@ public class Showcase implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date", insertable = false)
     private Date creationDate;
 
     @Column(name = "last_update_date", insertable = false)
