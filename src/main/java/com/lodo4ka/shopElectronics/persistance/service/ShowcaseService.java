@@ -22,5 +22,7 @@ public interface ShowcaseService {
 
     List<Showcase> getAllShowcasesCreatedBetween(Date date1, Date date2);
 
+    List<Showcase> getAllShowcasesActualizedBetween(Date date1, Date date2);
+
     void actualizeShowcase(Showcase showcase);
 }

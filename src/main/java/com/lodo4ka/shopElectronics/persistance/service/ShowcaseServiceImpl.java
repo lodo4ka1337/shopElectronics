@@ -61,6 +61,11 @@ public class ShowcaseServiceImpl implements ShowcaseService {
         return showcaseRepository.getShowcasesByCreationDateBetween(date1, date2);
     }
 
+    @Override
+    public List<Showcase> getAllShowcasesActualizedBetween(Date date1, Date date2) {
+        return showcaseRepository.getShowcasesByLastUpdateBetween(date1, date2);
+    }
+
     @Transactional
     @Override
     public void actualizeShowcase(Showcase showcase) {

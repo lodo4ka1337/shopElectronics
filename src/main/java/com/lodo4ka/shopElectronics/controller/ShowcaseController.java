@@ -36,9 +36,14 @@ public class ShowcaseController {
         return showcaseService.getAllShowcasesFilteredByAddress(address);
     }
 
-    @GetMapping("/showcases/get/date_period")
+    @GetMapping("/showcases/get/creation_date_period")
     public List<Showcase> getAllShowcasesCreatedBetween(@RequestParam(value = "date1") Date date1, @RequestParam(value = "date2") Date date2) {
         return showcaseService.getAllShowcasesCreatedBetween(date1, date2);
+    }
+
+    @GetMapping("/showcases/get/last_update_period")
+    public List<Showcase> getAllShowcasesActualizedBetween(@RequestParam(value = "date1") Date date1, @RequestParam(value = "date2") Date date2) {
+        return showcaseService.getAllShowcasesActualizedBetween(date1, date2);
     }
 
     @PostMapping("/showcases/add")
