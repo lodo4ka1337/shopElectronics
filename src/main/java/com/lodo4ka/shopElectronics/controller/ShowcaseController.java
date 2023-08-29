@@ -100,8 +100,14 @@ public class ShowcaseController {
     }
 
     @PutMapping("/products/update")
-    void updateProduct(@RequestBody Product product) {
-        productService.updateProduct(product);
+    void updateProduct(@RequestParam(value = "id", required = true) UUID id,
+                       @RequestParam(value = "name", required = false) Optional<String> name,
+                       @RequestParam(value = "type", required = false) Optional<String> type,
+                       @RequestParam(value = "price", required = false) Optional<Double> price,
+                       @RequestParam(value = "showcaseId", required = false) Optional<UUID> showcaseId,
+                       @RequestParam(value = "positionOnShowcase", required = false) Optional<Integer> positionOnShowcase,
+                       @RequestParam(value = "dateOfPlacing", required = false) Optional<Date> dateOfPlacing) {
+        productService.updateProduct(id, name, type, price, showcaseId, positionOnShowcase, dateOfPlacing);
     }
 
 }

@@ -86,3 +86,12 @@ databaseChangeLog:
               - column:
                   name: last_update_date
                   type: date
+
+  - changeSet:
+      id: 3
+      author: lodo4ka
+      changes:
+        - addUniqueConstraint:
+            tableName: "products"
+            constraintName: "unique_position_on_showcase"
+            columnNames: "showcase_id, position_on_showcase"

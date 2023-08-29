@@ -10,9 +10,10 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
-    List<Product> findAllProductsByShowcaseId(UUID id);
+    Product getProductById(UUID id);
+    List<Product> getAllProductsByShowcaseId(UUID id);
 
-    List<Product> findAllProductsByShowcaseIdAndType(UUID id, String type);
+    List<Product> getAllProductsByShowcaseIdAndType(UUID id, String type);
 
-    List<Product> findAllProductsByShowcaseIdAndPriceBetween(UUID id, double price1, double price2);
+    List<Product> getAllProductsByShowcaseIdAndPriceBetween(UUID id, double price1, double price2);
 }
