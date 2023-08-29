@@ -41,7 +41,7 @@ public class Product implements Serializable {
     private Date dateOfPlacing;
 
     @Column(name = "last_update_date")
-    private Date lastUpdateDate;
+    private Date lastUpdate;
 
     public Product() {
     }
@@ -102,12 +102,12 @@ public class Product implements Serializable {
         this.dateOfPlacing = date_of_placing;
     }
 
-    public Date getLastUpdateDate() {
-        return lastUpdateDate;
+    public Date getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setLastUpdateDate(Date last_update_date) {
-        this.lastUpdateDate = last_update_date;
+    public void setLastUpdate(Date last_update_date) {
+        this.lastUpdate = last_update_date;
     }
 
 }

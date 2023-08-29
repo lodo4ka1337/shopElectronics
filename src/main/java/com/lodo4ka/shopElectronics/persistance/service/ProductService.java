@@ -18,4 +18,6 @@ public interface ProductService {
     void deleteProduct(UUID id);
 
     void updateProduct(Product product);
+
+    void actualizeProduct(Product product);
 }

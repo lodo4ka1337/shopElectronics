@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     @Override
     public void addProduct(Product product) {
+        actualizeProduct(product);
         productRepository.save(product);
     }
 
@@ -50,7 +52,14 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     @Override
     public void updateProduct(Product product) {
+        actualizeProduct(product);
         productRepository.save(product);
+    }
+
+    @Override
+    public void actualizeProduct(Product product) {
+        product.setLastUpdate(new Date(new java.util.Date().getTime()));
+
     }
 
 }

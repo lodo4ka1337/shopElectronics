@@ -3,13 +3,11 @@ package com.lodo4ka.shopElectronics.persistance.service;
 import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 import com.lodo4ka.shopElectronics.persistance.repository.ShowcaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,6 +29,7 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     @Override
     @Transactional
     public void addShowcase(Showcase showcase) {
+        actualizeShowcase(showcase);
         showcaseRepository.save(showcase);
     }
 
@@ -43,6 +42,7 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     @Transactional
     @Override
     public void updateShowcase(Showcase showcase) {
+        actualizeShowcase(showcase);
         showcaseRepository.save(showcase);
     }
 
@@ -59,6 +59,12 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     @Override
     public List<Showcase> getAllShowcasesCreatedBetween(Date date1, Date date2) {
         return showcaseRepository.getShowcasesByCreationDateBetween(date1, date2);
+    }
+
+    @Transactional
+    @Override
+    public void actualizeShowcase(Showcase showcase) {
+        showcase.setLastUpdate(new Date(new java.util.Date().getTime()));
     }
 
 }
