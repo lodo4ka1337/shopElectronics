@@ -22,7 +22,6 @@ databaseChangeLog:
                   name: address
                   type: varchar(100)
                   constraints:
-                    unique: true
                     nullable: false
               - column:
                   name: type
@@ -91,3 +90,11 @@ databaseChangeLog:
             tableName: "products"
             constraintName: "unique_position_on_showcase"
             columnNames: "showcase_id, position_on_showcase"
+  - changeSet:
+      id: 4
+      author: lodo4ka
+      changes:
+        - addUniqueConstraint:
+            tableName: "showcases"
+            constraintName: "unique_name_and_address"
+            columnNames: "name, address"
