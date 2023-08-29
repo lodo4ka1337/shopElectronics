@@ -19,4 +19,5 @@ public interface ShowcaseRepository extends JpaRepository<Showcase, UUID> {
     List<Showcase> getShowcasesByCreationDateBetween(Date date1, Date date2);
 
     List<Showcase> getShowcasesByLastUpdateBetween(Date date1, Date date2);
+
 }

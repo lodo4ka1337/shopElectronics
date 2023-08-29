@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -60,9 +61,13 @@ public class ShowcaseServiceImpl implements ShowcaseService {
 
     @Transactional
     @Override
-    public void updateShowcase(Showcase showcase) {
-        actualizeShowcaseById(showcase.getId());
-        showcaseRepository.save(showcase);
+    public void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type, Optional<Date> creationDate) {
+        Showcase showcase = showcaseRepository.getShowcaseById(id);
+        name.ifPresent(showcase::setName);
+        address.ifPresent(showcase::setAddress);
+        type.ifPresent(showcase::setType);
+        creationDate.ifPresent(showcase::setCreationDate);
+        actualizeShowcaseById(id);
     }
 
     @Transactional
@@ -70,6 +75,7 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     public void actualizeShowcaseById(UUID id) {
         Showcase showcase = showcaseRepository.getShowcaseById(id);
         showcase.setLastUpdate(new Date(new java.util.Date().getTime()));
+        showcaseRepository.save(showcase);
     }
 
 }

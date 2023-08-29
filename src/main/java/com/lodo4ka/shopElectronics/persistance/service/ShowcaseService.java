@@ -4,6 +4,7 @@ import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ShowcaseService {
@@ -12,8 +13,6 @@ public interface ShowcaseService {
     void addShowcase(Showcase showcase);
 
     void deleteShowcaseById(UUID id);
-
-    void updateShowcase(Showcase showcase);
 
     List<Showcase> getAllShowcasesFilteredByType(String type);
 
@@ -25,4 +24,5 @@ public interface ShowcaseService {
 
     void actualizeShowcaseById(UUID id);
 
+    void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type, Optional<Date> creationDate);
 }

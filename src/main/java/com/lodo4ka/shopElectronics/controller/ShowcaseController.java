@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -56,8 +57,12 @@ public class ShowcaseController {
     }
 
     @PutMapping("/showcases/update")
-    public void updateShowcase(@RequestBody Showcase showcase) {
-        showcaseService.updateShowcase(showcase);
+    public void updateShowcase(@RequestParam(value = "id", required = true) UUID id,
+                               @RequestParam(value = "name", required = false) Optional<String> name,
+                               @RequestParam(value = "address", required = false) Optional<String> address,
+                               @RequestParam(value = "type", required = false) Optional<String> type,
+                               @RequestParam(value = "creationDate", required = false) Optional<Date> creationDate) {
+        showcaseService.updateShowcase(id, name, address, type, creationDate);
     }
 
     @DeleteMapping("/showcases/delete")
