@@ -1,5 +1,5 @@
 # shopElectronics
-API that stores information about electronics shops showcases and its related products
+API that stores information about electronics shops showcases and its related products in database.
 
 Подключить на свободный порт PostgreSQL.<br />
 По умолчанию стоит стандартный порт localhost:5432,<br />
