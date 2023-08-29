@@ -53,14 +53,13 @@ public class ProductServiceImpl implements ProductService{
 
     @Transactional
     @Override
-    public void updateProduct(UUID id, Optional<String> name, Optional<String> type, Optional<Double> price, Optional<UUID> showcaseId, Optional<Integer> positionOnShowcase, Optional<Date> dateOfPlacing) {
+    public void updateProduct(UUID id, Optional<String> name, Optional<String> type, Optional<Double> price, Optional<UUID> showcaseId, Optional<Integer> positionOnShowcase) {
         Product product = productRepository.getProductById(id);
         name.ifPresent(product::setName);
         type.ifPresent(product::setType);
         price.ifPresent(product::setPrice);
         showcaseId.ifPresent(product::setShowcaseId);
         positionOnShowcase.ifPresent(product::setPositionOnShowcase);
-        dateOfPlacing.ifPresent(product::setDateOfPlacing);
         actualizeProduct(product);
     }
 

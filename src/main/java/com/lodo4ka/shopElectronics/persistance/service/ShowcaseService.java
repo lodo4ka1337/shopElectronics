@@ -24,5 +24,5 @@ public interface ShowcaseService {
 
     void actualizeShowcaseById(UUID id);
 
-    void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type, Optional<Date> creationDate);
+    void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type);
 }

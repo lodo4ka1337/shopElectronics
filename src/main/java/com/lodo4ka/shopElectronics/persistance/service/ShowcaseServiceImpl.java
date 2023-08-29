@@ -64,12 +64,11 @@ public class ShowcaseServiceImpl implements ShowcaseService {
 
     @Transactional
     @Override
-    public void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type, Optional<Date> creationDate) {
+    public void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type) {
         Showcase showcase = showcaseRepository.getShowcaseById(id);
         name.ifPresent(showcase::setName);
         address.ifPresent(showcase::setAddress);
         type.ifPresent(showcase::setType);
-        creationDate.ifPresent(showcase::setCreationDate);
         actualizeShowcaseById(id);
     }
 

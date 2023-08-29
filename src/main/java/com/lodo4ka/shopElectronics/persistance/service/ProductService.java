@@ -20,5 +20,5 @@ public interface ProductService {
 
     void actualizeProduct(Product product);
 
-    void updateProduct(UUID id, Optional<String> name, Optional<String> type, Optional<Double> price, Optional<UUID> showcaseId, Optional<Integer> positionOnShowcase, Optional<Date> dateOfPlacing);
+    void updateProduct(UUID id, Optional<String> name, Optional<String> type, Optional<Double> price, Optional<UUID> showcaseId, Optional<Integer> positionOnShowcase);
 }

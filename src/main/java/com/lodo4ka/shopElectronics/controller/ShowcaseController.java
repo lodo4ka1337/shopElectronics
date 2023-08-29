@@ -60,9 +60,8 @@ public class ShowcaseController {
     public void updateShowcase(@RequestParam(value = "id", required = true) UUID id,
                                @RequestParam(value = "name", required = false) Optional<String> name,
                                @RequestParam(value = "address", required = false) Optional<String> address,
-                               @RequestParam(value = "type", required = false) Optional<String> type,
-                               @RequestParam(value = "creationDate", required = false) Optional<Date> creationDate) {
-        showcaseService.updateShowcase(id, name, address, type, creationDate);
+                               @RequestParam(value = "type", required = false) Optional<String> type) {
+        showcaseService.updateShowcase(id, name, address, type);
     }
 
     @DeleteMapping("/showcases/delete")
@@ -105,9 +104,8 @@ public class ShowcaseController {
                        @RequestParam(value = "type", required = false) Optional<String> type,
                        @RequestParam(value = "price", required = false) Optional<Double> price,
                        @RequestParam(value = "showcaseId", required = false) Optional<UUID> showcaseId,
-                       @RequestParam(value = "positionOnShowcase", required = false) Optional<Integer> positionOnShowcase,
-                       @RequestParam(value = "dateOfPlacing", required = false) Optional<Date> dateOfPlacing) {
-        productService.updateProduct(id, name, type, price, showcaseId, positionOnShowcase, dateOfPlacing);
+                       @RequestParam(value = "positionOnShowcase", required = false) Optional<Integer> positionOnShowcase) {
+        productService.updateProduct(id, name, type, price, showcaseId, positionOnShowcase);
     }
 
 }
