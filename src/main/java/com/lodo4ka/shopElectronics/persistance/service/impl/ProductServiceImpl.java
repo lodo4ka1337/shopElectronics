@@ -1,7 +1,10 @@
-package com.lodo4ka.shopElectronics.persistance.service;
+package com.lodo4ka.shopElectronics.persistance.service.impl;
 
 import com.lodo4ka.shopElectronics.persistance.model.Product;
+import com.lodo4ka.shopElectronics.persistance.model.QProduct;
 import com.lodo4ka.shopElectronics.persistance.repository.ProductRepository;
+import com.lodo4ka.shopElectronics.persistance.service.ProductService;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,27 +16,12 @@ import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-    }
-
-    @Override
-    public List<Product> getAllProductsOfShowcase(UUID id) {
-        return productRepository.getAllProductsByShowcaseId(id);
-    }
-
-    @Override
-    public List<Product> getAllProductsOfShowcaseFilteredByType(UUID id, String type) {
-        return productRepository.getAllProductsByShowcaseIdAndType(id, type);
-    }
-
-    @Override
-    public List<Product> getAllProductsOfShowcaseWithPriceBetween(UUID id, double price1, double price2) {
-        return productRepository.getAllProductsByShowcaseIdAndPriceBetween(id, price1, price2);
     }
 
     @Transactional
@@ -61,6 +49,32 @@ public class ProductServiceImpl implements ProductService{
         showcaseId.ifPresent(product::setShowcaseId);
         positionOnShowcase.ifPresent(product::setPositionOnShowcase);
         actualizeProduct(product);
+    }
+
+    @Override
+    public List<Product> getProductsOfShowcase(UUID id, String type, Double price1, Double price2) {
+        QProduct product = QProduct.product;
+        BooleanBuilder predicates = new BooleanBuilder();
+
+        if (type != null) {
+            predicates.and(product.type.eq(type));
+        }
+
+        if (price1 != null || price2 != null) {
+            if (price1 != null && price2 != null) {
+                if (price1 > price2) {
+                    predicates.and(product.price.between(price1, price2));
+                }
+                else {
+
+                }
+            }
+            else {
+
+            }
+        }
+
+        return productRepository.findAll(predicates);
     }
 
     @Transactional

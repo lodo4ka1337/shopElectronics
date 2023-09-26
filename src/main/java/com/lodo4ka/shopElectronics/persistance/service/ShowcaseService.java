@@ -8,19 +8,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ShowcaseService {
-    List<Showcase> getAllShowcases();
+
+    List<Showcase> getShowcases(String type, String address, Date crDate1, Date crDate2, Date actDate1, Date actDate2);
 
     void addShowcase(Showcase showcase);
 
     void deleteShowcaseById(UUID id);
-
-    List<Showcase> getAllShowcasesFilteredByType(String type);
-
-    List<Showcase> getAllShowcasesFilteredByAddress(String address);
-
-    List<Showcase> getAllShowcasesCreatedBetween(Date date1, Date date2);
-
-    List<Showcase> getAllShowcasesActualizedBetween(Date date1, Date date2);
 
     void actualizeShowcaseById(UUID id);
 

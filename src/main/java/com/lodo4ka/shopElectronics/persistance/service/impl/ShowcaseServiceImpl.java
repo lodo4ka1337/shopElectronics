@@ -1,7 +1,10 @@
-package com.lodo4ka.shopElectronics.persistance.service;
+package com.lodo4ka.shopElectronics.persistance.service.impl;
 
+import com.lodo4ka.shopElectronics.persistance.model.QShowcase;
 import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 import com.lodo4ka.shopElectronics.persistance.repository.ShowcaseRepository;
+import com.lodo4ka.shopElectronics.persistance.service.ShowcaseService;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,28 +26,46 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     }
 
     @Override
-    public List<Showcase> getAllShowcases() {
-        return showcaseRepository.findAll();
-    }
+    public List<Showcase> getShowcases(String type, String address, Date crDate1, Date crDate2, Date actDate1, Date actDate2) {
+        QShowcase showcase = QShowcase.showcase;
+        BooleanBuilder predicates = new BooleanBuilder();
 
-    @Override
-    public List<Showcase> getAllShowcasesFilteredByType(String type) {
-        return showcaseRepository.getAllShowcasesByType(type);
-    }
+        if (type != null) {
+            predicates.and(showcase.type.eq(type));
+        }
 
-    @Override
-    public List<Showcase> getAllShowcasesFilteredByAddress(String address) {
-        return showcaseRepository.getAllShowcasesByAddress(address);
-    }
+        if (address != null) {
+            predicates.and(showcase.address.eq(address));
+        }
 
-    @Override
-    public List<Showcase> getAllShowcasesCreatedBetween(Date date1, Date date2) {
-        return showcaseRepository.getShowcasesByCreationDateBetween(date1, date2);
-    }
+        if (crDate1 != null || crDate2 != null) {
+            if (crDate1 != null && crDate2 != null) {
+                if (crDate1.before(crDate2)) {
+                    predicates.and(showcase.creationDate.between(crDate1, crDate2));
+                }
+                else {
 
-    @Override
-    public List<Showcase> getAllShowcasesActualizedBetween(Date date1, Date date2) {
-        return showcaseRepository.getShowcasesByLastUpdateBetween(date1, date2);
+                }
+            }
+            else {
+
+            }
+        }
+
+        if (actDate1 != null || actDate2 != null) {
+            if (actDate1 != null && actDate2 != null) {
+                if (actDate1.before(actDate2)) {
+                    predicates.and(showcase.lastUpdate.between(actDate1, actDate2));
+                } else {
+
+                }
+            }
+            else {
+
+            }
+        }
+
+        return showcaseRepository.findAll(predicates);
     }
 
     @Override

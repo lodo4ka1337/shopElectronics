@@ -24,31 +24,14 @@ public class ShowcaseController {
         this.productService = productService;
     }
 
-    @GetMapping("/showcases/get/all")
-    public List<Showcase> getAllShowcases() {
-        return showcaseService.getAllShowcases();
-    }
-
-    @GetMapping("/showcases/get/type")
-    public List<Showcase> getAllShowcasesFilteredByType(@RequestParam(value = "type") String type) {
-        return showcaseService.getAllShowcasesFilteredByType(type);
-    }
-
-    @GetMapping("/showcases/get/address")
-    public List<Showcase> getAllShowcasesFilteredByAddress(@RequestParam(value = "address") String address) {
-        return showcaseService.getAllShowcasesFilteredByAddress(address);
-    }
-
-    @GetMapping("/showcases/get/creation_date_period")
-    public List<Showcase> getAllShowcasesCreatedBetween(@RequestParam(value = "date1") Date date1,
-                                                        @RequestParam(value = "date2") Date date2) {
-        return showcaseService.getAllShowcasesCreatedBetween(date1, date2);
-    }
-
-    @GetMapping("/showcases/get/last_update_period")
-    public List<Showcase> getAllShowcasesActualizedBetween(@RequestParam(value = "date1") Date date1,
-                                                           @RequestParam(value = "date2") Date date2) {
-        return showcaseService.getAllShowcasesActualizedBetween(date1, date2);
+    @GetMapping("/showcases/get")
+    public List<Showcase> getShowcases(@RequestParam(value = "type", required = false) String type,
+                                       @RequestParam(value = "address", required = false) String address,
+                                       @RequestParam(value = "crDate1", required = false) Date crDate1,
+                                       @RequestParam(value = "crDate2", required = false) Date crDate2,
+                                       @RequestParam(value = "actDate1", required = false) Date actDate1,
+                                       @RequestParam(value = "actDate2", required = false) Date actDate2) {
+        return showcaseService.getShowcases(type, address, crDate1, crDate2, actDate1, actDate2);
     }
 
     @PostMapping("/showcases/add")
@@ -65,26 +48,16 @@ public class ShowcaseController {
     }
 
     @DeleteMapping("/showcases/delete")
-    public void deleteShowcaseById(@RequestParam(value = "id") UUID id) {
+    public void deleteShowcase(@RequestParam(value = "id") UUID id) {
         showcaseService.deleteShowcaseById(id);
     }
 
-    @GetMapping("/products/get/all")
-    List<Product> getAllProductsOfShowcase(@RequestParam(value = "showcaseId") UUID id) {
-        return productService.getAllProductsOfShowcase(id);
-    }
-
-    @GetMapping("/products/get/type")
-    List<Product> getAllProductsOfShowcaseFilteredByType(@RequestParam(value = "showcaseId") UUID id,
-                                                         @RequestParam(value = "type") String type) {
-        return productService.getAllProductsOfShowcaseFilteredByType(id, type);
-    }
-
-    @GetMapping("/products/get/price")
-    List<Product> getAllProductsOfShowcaseFilteredByPriceBetween(@RequestParam(value = "showcaseId") UUID id,
-                                                                 @RequestParam(value = "price1") double price1,
-                                                                 @RequestParam(value = "price2") double price2) {
-        return productService.getAllProductsOfShowcaseWithPriceBetween(id, price1, price2);
+    @GetMapping("/products/get")
+    List<Product> getProductsOfShowcase(@RequestParam(value = "showcaseId") UUID id,
+                                        @RequestParam(value = "type", required = false) String type,
+                                        @RequestParam(value = "price1", required = false) Double price1,
+                                        @RequestParam(value = "price2", required = false) Double price2) {
+        return productService.getProductsOfShowcase(id, type, price1, price2);
     }
 
     @PostMapping("/products/add")
@@ -99,7 +72,7 @@ public class ShowcaseController {
     }
 
     @PutMapping("/products/update")
-    void updateProduct(@RequestParam(value = "id", required = true) UUID id,
+    void updateProduct(@RequestParam(value = "id") UUID id,
                        @RequestParam(value = "name", required = false) Optional<String> name,
                        @RequestParam(value = "type", required = false) Optional<String> type,
                        @RequestParam(value = "price", required = false) Optional<Double> price,
