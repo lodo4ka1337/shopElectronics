@@ -1,16 +1,20 @@
 package com.lodo4ka.shopElectronics.persistance.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.sql.Date;
+import java.util.Date;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "products")
+@EntityListeners(AuditingEntityListener.class)
 public class Product implements Serializable {
 
     @Id
@@ -37,13 +41,23 @@ public class Product implements Serializable {
     @Column(name = "position_on_showcase", nullable = false)
     private int positionOnShowcase;
 
-    @Column(name = "date_of_placing",insertable = false)
+    @Column(name = "date_of_placing", updatable = false)
+    @CreatedDate
     private Date dateOfPlacing;
 
-    @Column(name = "last_update_date", insertable = false)
+    @Column(name = "last_modification_date")
+    @LastModifiedDate
     private Date lastUpdate;
 
     public Product() {
+    }
+
+    public Product(String name, String type, double price, UUID showcaseId, int positionOnShowcase) {
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.showcaseId = showcaseId;
+        this.positionOnShowcase = positionOnShowcase;
     }
 
     public UUID getId() {

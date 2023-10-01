@@ -1,5 +1,8 @@
 package com.lodo4ka.shopElectronics.persistance.service.impl;
 
+import com.lodo4ka.shopElectronics.persistance.model.DTO.Mapper.ShowcaseDTOMapper;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseDTO;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseSearchRequest;
 import com.lodo4ka.shopElectronics.persistance.model.QShowcase;
 import com.lodo4ka.shopElectronics.persistance.model.Showcase;
 import com.lodo4ka.shopElectronics.persistance.repository.ShowcaseRepository;
@@ -9,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,28 +23,37 @@ public class ShowcaseServiceImpl implements ShowcaseService {
 
     private final ShowcaseRepository showcaseRepository;
 
+    private final ShowcaseDTOMapper showcaseDTOMapper;
+
     @Autowired
-    public ShowcaseServiceImpl(ShowcaseRepository showcaseRepository) {
+    public ShowcaseServiceImpl(ShowcaseRepository showcaseRepository, ShowcaseDTOMapper showcaseDTOMapper) {
         this.showcaseRepository = showcaseRepository;
+        this.showcaseDTOMapper = showcaseDTOMapper;
     }
 
     @Override
-    public List<Showcase> getShowcases(String type, String address, Date crDate1, Date crDate2, Date actDate1, Date actDate2) {
+    public List<ShowcaseDTO> getShowcases(ShowcaseSearchRequest showcaseSearchRequest) {
         QShowcase showcase = QShowcase.showcase;
         BooleanBuilder predicates = new BooleanBuilder();
 
-        if (type != null) {
-            predicates.and(showcase.type.eq(type));
+        if (showcaseSearchRequest.getType() != null) {
+            predicates.and(showcase.type.eq(showcaseSearchRequest.getType()));
         }
 
-        if (address != null) {
-            predicates.and(showcase.address.eq(address));
+        if (showcaseSearchRequest.getAddress() != null) {
+            predicates.and(showcase.address.eq(showcaseSearchRequest.getAddress()));
         }
 
-        if (crDate1 != null || crDate2 != null) {
-            if (crDate1 != null && crDate2 != null) {
-                if (crDate1.before(crDate2)) {
-                    predicates.and(showcase.creationDate.between(crDate1, crDate2));
+        Date creationDate1 = showcaseSearchRequest.getCreationDate1();
+        Date creationDate2 = showcaseSearchRequest.getCreationDate2();
+        if (creationDate1 != null
+                || creationDate2 != null) {
+            if (creationDate1 != null
+                    && creationDate2 != null) {
+                if (creationDate1.before(creationDate2)) {
+                    predicates.and(showcase.creationDate.between(
+                            creationDate1,
+                            creationDate2));
                 }
                 else {
 
@@ -52,10 +64,16 @@ public class ShowcaseServiceImpl implements ShowcaseService {
             }
         }
 
-        if (actDate1 != null || actDate2 != null) {
-            if (actDate1 != null && actDate2 != null) {
-                if (actDate1.before(actDate2)) {
-                    predicates.and(showcase.lastUpdate.between(actDate1, actDate2));
+        Date modificationDate1 = showcaseSearchRequest.getModificationDate1();
+        Date modificationDate2 = showcaseSearchRequest.getModificationDate2();
+        if (modificationDate1 != null
+                || modificationDate2 != null) {
+            if (modificationDate1 != null
+                    && modificationDate2 != null) {
+                if (modificationDate1.before(modificationDate2)) {
+                    predicates.and(showcase.lastUpdate.between(
+                            modificationDate1,
+                            modificationDate2));
                 } else {
 
                 }
@@ -65,16 +83,59 @@ public class ShowcaseServiceImpl implements ShowcaseService {
             }
         }
 
-        return showcaseRepository.findAll(predicates);
+        return showcaseRepository.findAll(predicates)
+                .stream()
+                .map(showcaseDTOMapper)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void addShowcase(Showcase showcase) {
+    public ShowcaseDTO addShowcase(ShowcaseDTO showcaseAddRequest) {
+        Showcase showcase = new Showcase(
+                showcaseAddRequest.getName(),
+                showcaseAddRequest.getAddress(),
+                showcaseAddRequest.getType()
+        );
         showcaseRepository.save(showcase);
-        showcaseRepository.getShowcaseById(showcase.getId()).
-                setCreationDate(new Date(new java.util.Date().getTime()));
-        actualizeShowcaseById(showcase.getId());
+
+        return new ShowcaseDTO(
+                showcase.getId(),
+                showcase.getName(),
+                showcase.getAddress(),
+                showcase.getType(),
+                showcase.getCreationDate(),
+                showcase.getLastUpdate()
+        );
+    }
+
+    @Transactional
+    @Override
+    public ShowcaseDTO updateShowcase(ShowcaseDTO showcaseUpdateRequest) {
+        Showcase showcase = showcaseRepository.getShowcaseById(showcaseUpdateRequest.getId());
+
+        if (showcaseUpdateRequest.getName() != null) {
+            showcase.setName(showcaseUpdateRequest.getName());
+        }
+
+        if (showcaseUpdateRequest.getAddress() != null) {
+            showcase.setAddress(showcase.getAddress());
+        }
+
+        if (showcaseUpdateRequest.getType() != null) {
+            showcase.setType(showcaseUpdateRequest.getType());
+        }
+
+        showcaseRepository.save(showcase);
+
+        return new ShowcaseDTO(
+                showcase.getId(),
+                showcase.getName(),
+                showcase.getAddress(),
+                showcase.getType(),
+                showcase.getCreationDate(),
+                showcase.getLastUpdate()
+        );
     }
 
     @Override
@@ -82,23 +143,4 @@ public class ShowcaseServiceImpl implements ShowcaseService {
     public void deleteShowcaseById(UUID id) {
         showcaseRepository.deleteById(id);
     }
-
-    @Transactional
-    @Override
-    public void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type) {
-        Showcase showcase = showcaseRepository.getShowcaseById(id);
-        name.ifPresent(showcase::setName);
-        address.ifPresent(showcase::setAddress);
-        type.ifPresent(showcase::setType);
-        actualizeShowcaseById(id);
-    }
-
-    @Transactional
-    @Override
-    public void actualizeShowcaseById(UUID id) {
-        Showcase showcase = showcaseRepository.getShowcaseById(id);
-        showcase.setLastUpdate(new Date(new java.util.Date().getTime()));
-        showcaseRepository.save(showcase);
-    }
-
 }

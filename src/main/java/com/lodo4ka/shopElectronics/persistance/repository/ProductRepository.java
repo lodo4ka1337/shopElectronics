@@ -4,6 +4,7 @@ import com.lodo4ka.shopElectronics.persistance.model.Product;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID>, Queryds
 
     Product getProductById(UUID id);
 
-    List<Product> findAll(Predicate predicate);
+    @NonNull
+    List<Product> findAll(@NonNull Predicate predicate);
 }

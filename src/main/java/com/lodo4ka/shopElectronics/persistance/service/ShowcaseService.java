@@ -1,21 +1,18 @@
 package com.lodo4ka.shopElectronics.persistance.service;
 
-import com.lodo4ka.shopElectronics.persistance.model.Showcase;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseDTO;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseSearchRequest;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface ShowcaseService {
 
-    List<Showcase> getShowcases(String type, String address, Date crDate1, Date crDate2, Date actDate1, Date actDate2);
+    List<ShowcaseDTO> getShowcases(ShowcaseSearchRequest showcaseSearchRequest);
 
-    void addShowcase(Showcase showcase);
+    ShowcaseDTO addShowcase(ShowcaseDTO showcaseAddRequest);
+
+    ShowcaseDTO updateShowcase(ShowcaseDTO showcaseUpdateRequest);
 
     void deleteShowcaseById(UUID id);
-
-    void actualizeShowcaseById(UUID id);
-
-    void updateShowcase(UUID id, Optional<String> name, Optional<String> address, Optional<String> type);
 }

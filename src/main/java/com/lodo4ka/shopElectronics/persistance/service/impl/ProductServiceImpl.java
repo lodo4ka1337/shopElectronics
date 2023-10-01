@@ -1,5 +1,8 @@
 package com.lodo4ka.shopElectronics.persistance.service.impl;
 
+import com.lodo4ka.shopElectronics.persistance.model.DTO.Mapper.ProductDTOMapper;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductSearchRequest;
 import com.lodo4ka.shopElectronics.persistance.model.Product;
 import com.lodo4ka.shopElectronics.persistance.model.QProduct;
 import com.lodo4ka.shopElectronics.persistance.repository.ProductRepository;
@@ -9,60 +12,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
+    private final ProductDTOMapper productDTOMapper;
+
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductDTOMapper productDTOMapper) {
         this.productRepository = productRepository;
-    }
-
-    @Transactional
-    @Override
-    public void addProduct(Product product) {
-        productRepository.save(product);
-        productRepository.getProductById(product.getId()).
-                setDateOfPlacing(new Date(new java.util.Date().getTime()));
-        actualizeProduct(product);
-    }
-
-    @Transactional
-    @Override
-    public void deleteProduct(UUID id) {
-        productRepository.deleteById(id);
-    }
-
-    @Transactional
-    @Override
-    public void updateProduct(UUID id, Optional<String> name, Optional<String> type, Optional<Double> price, Optional<UUID> showcaseId, Optional<Integer> positionOnShowcase) {
-        Product product = productRepository.getProductById(id);
-        name.ifPresent(product::setName);
-        type.ifPresent(product::setType);
-        price.ifPresent(product::setPrice);
-        showcaseId.ifPresent(product::setShowcaseId);
-        positionOnShowcase.ifPresent(product::setPositionOnShowcase);
-        actualizeProduct(product);
+        this.productDTOMapper = productDTOMapper;
     }
 
     @Override
-    public List<Product> getProductsOfShowcase(UUID id, String type, Double price1, Double price2) {
+    public List<ProductDTO> getProductsOfShowcase(ProductSearchRequest productSearchRequest) {
         QProduct product = QProduct.product;
         BooleanBuilder predicates = new BooleanBuilder();
 
-        if (type != null) {
-            predicates.and(product.type.eq(type));
+        predicates.and(product.showcaseId.eq(productSearchRequest.getShowcaseId()));
+
+        if (productSearchRequest.getType() != null) {
+            predicates.and(product.type.eq(productSearchRequest.getType()));
         }
 
+        Double price1 = productSearchRequest.getPrice1();
+        Double price2 = productSearchRequest.getPrice2();
         if (price1 != null || price2 != null) {
             if (price1 != null && price2 != null) {
-                if (price1 > price2) {
+                if (price1 < price2) {
                     predicates.and(product.price.between(price1, price2));
                 }
                 else {
@@ -74,14 +56,78 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
-        return productRepository.findAll(predicates);
+        return productRepository.findAll(predicates)
+                .stream()
+                .map(productDTOMapper)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     @Override
-    public void actualizeProduct(Product product) {
-        product.setLastUpdate(new Date(new java.util.Date().getTime()));
+    public ProductDTO addProduct(ProductDTO productAddRequest) {
+        Product product = new Product(
+                productAddRequest.getName(),
+                productAddRequest.getType(),
+                productAddRequest.getPrice(),
+                productAddRequest.getShowcaseId(),
+                productAddRequest.getPositionOnShowcase()
+        );
         productRepository.save(product);
+
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getType(),
+                product.getPrice(),
+                product.getShowcaseId(),
+                product.getPositionOnShowcase(),
+                product.getDateOfPlacing(),
+                product.getLastUpdate()
+        );
+    }
+
+    @Transactional
+    @Override
+    public ProductDTO updateProduct(ProductDTO productUpdateRequest) {
+        Product product = productRepository.getProductById(productUpdateRequest.getId());
+
+        if (productUpdateRequest.getName() != null) {
+            product.setName(productUpdateRequest.getName());
+        }
+
+        if (productUpdateRequest.getType() != null) {
+            product.setType(productUpdateRequest.getType());
+        }
+
+        if (productUpdateRequest.getPrice() != null) {
+            product.setPrice(productUpdateRequest.getPrice());
+        }
+
+        if (productUpdateRequest.getShowcaseId() != null) {
+            product.setShowcaseId(productUpdateRequest.getShowcaseId());
+        }
+
+        if (productUpdateRequest.getPositionOnShowcase() != null) {
+            product.setPositionOnShowcase(productUpdateRequest.getPositionOnShowcase());
+        }
+        productRepository.save(product);
+
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getType(),
+                product.getPrice(),
+                product.getShowcaseId(),
+                product.getPositionOnShowcase(),
+                product.getDateOfPlacing(),
+                product.getLastUpdate()
+        );
+    }
+
+    @Transactional
+    @Override
+    public void deleteProduct(UUID id) {
+        productRepository.deleteById(id);
     }
 
 }

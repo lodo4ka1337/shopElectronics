@@ -1,11 +1,14 @@
 package com.lodo4ka.shopElectronics.persistance.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.sql.Date;
+import java.util.Date;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +16,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "showcases")
+@EntityListeners(AuditingEntityListener.class)
 public class Showcase implements Serializable {
 
     @Id
@@ -27,23 +31,31 @@ public class Showcase implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "address", unique = true, nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "creation_date", insertable = false)
+    @Column(name = "creation_date", updatable = false)
+    @CreatedDate
     private Date creationDate;
 
-    @Column(name = "last_update_date", insertable = false)
+    @Column(name = "last_modification_date")
+    @LastModifiedDate
     private Date lastUpdate;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "showcase_id", updatable = false)
+    @JoinColumn(name = "showcase_id")
     private List<Product> products;
 
     public Showcase() {
+    }
+
+    public Showcase(String name, String address, String type) {
+        this.name = name;
+        this.address = address;
+        this.type = type;
     }
 
     public UUID getId() {
@@ -82,15 +94,7 @@ public class Showcase implements Serializable {
         return creationDate;
     }
 
-    public void setCreationDate(Date creation_date) {
-        this.creationDate = creation_date;
-    }
-
     public Date getLastUpdate() {
         return lastUpdate;
-    }
-
-    public void setLastUpdate(Date last_update_date) {
-        this.lastUpdate = last_update_date;
     }
 }
