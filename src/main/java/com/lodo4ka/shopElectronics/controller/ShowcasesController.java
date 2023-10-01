@@ -8,7 +8,6 @@ import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductSearchRequest;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseDTO;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseSearchRequest;
-import com.lodo4ka.shopElectronics.persistance.model.Product;
 import com.lodo4ka.shopElectronics.persistance.service.ProductService;
 import com.lodo4ka.shopElectronics.persistance.service.ShowcaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
