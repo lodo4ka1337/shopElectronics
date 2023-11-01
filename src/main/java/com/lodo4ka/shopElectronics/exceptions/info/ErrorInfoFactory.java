@@ -18,12 +18,12 @@ public class ErrorInfoFactory {
         return info;
     }
 
-    public static ErrorInfo getInvalidDateErrorInfo(String datePattern, List<String> dateParameters) {
+    public static ErrorInfo getInvalidDateErrorInfo(String datePattern, Map<String, Object> dateParameters) {
         String userErrorDescription = "Invalid creation date request parameters. " +
                 "Make sure all date parameters follow the pattern '" + datePattern + "'.";
         ErrorInfo info = getBadRequestErrorInfo(userErrorDescription);
         Map<String, Object> parameters = info.getParameters();
-        dateParameters.forEach(dateParameter -> parameters.put("date", dateParameter));
+        parameters.putAll(dateParameters);
         return info;
     }
 }
