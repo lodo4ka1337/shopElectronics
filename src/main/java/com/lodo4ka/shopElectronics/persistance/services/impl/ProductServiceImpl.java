@@ -1,12 +1,13 @@
-package com.lodo4ka.shopElectronics.persistance.service.impl;
+package com.lodo4ka.shopElectronics.persistance.services.impl;
 
-import com.lodo4ka.shopElectronics.persistance.model.DTO.Mapper.ProductDTOMapper;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.mappers.ProductDTOMapper;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductSearchRequest;
-import com.lodo4ka.shopElectronics.persistance.model.Product;
-import com.lodo4ka.shopElectronics.persistance.model.QProduct;
-import com.lodo4ka.shopElectronics.persistance.repository.ProductRepository;
-import com.lodo4ka.shopElectronics.persistance.service.ProductService;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.searchRequests.ProductSearchRequest;
+import com.lodo4ka.shopElectronics.persistance.model.entities.Product;
+
+import com.lodo4ka.shopElectronics.persistance.model.entities.QProduct;
+import com.lodo4ka.shopElectronics.persistance.repositories.ProductRepository;
+import com.lodo4ka.shopElectronics.persistance.services.ProductService;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

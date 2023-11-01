@@ -1,5 +1,6 @@
-package com.lodo4ka.shopElectronics.persistance.model;
+package com.lodo4ka.shopElectronics.persistance.model.entities;
 
+import com.lodo4ka.shopElectronics.persistance.model.entities.Product;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

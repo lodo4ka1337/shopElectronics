@@ -1,22 +1,24 @@
-package com.lodo4ka.shopElectronics.controller;
+package com.lodo4ka.shopElectronics.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.Interfaces.Details;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.Interfaces.Exists;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.Interfaces.New;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.Details;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.Exists;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.New;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductSearchRequest;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.searchRequests.ProductSearchRequest;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseDTO;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.ShowcaseSearchRequest;
-import com.lodo4ka.shopElectronics.persistance.service.ProductService;
-import com.lodo4ka.shopElectronics.persistance.service.ShowcaseService;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.searchRequests.ShowcaseSearchRequest;
+import com.lodo4ka.shopElectronics.persistance.services.ProductService;
+import com.lodo4ka.shopElectronics.persistance.services.ShowcaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+@Validated
 @RestController
 public class ShowcasesController {
     private final ShowcaseService showcaseService;
@@ -31,7 +33,7 @@ public class ShowcasesController {
 
     @GetMapping("/showcases/get")
     @JsonView({Details.class})
-    public List<ShowcaseDTO> getShowcases(@Validated ShowcaseSearchRequest showcaseSearchRequest) {
+    public List<ShowcaseDTO> getShowcases(@Valid ShowcaseSearchRequest showcaseSearchRequest) {
         return showcaseService.getShowcases(showcaseSearchRequest);
     }
 
@@ -53,7 +55,7 @@ public class ShowcasesController {
     }
 
     @GetMapping("/products/get")
-    List<ProductDTO> getProductsOfShowcase(@Validated ProductSearchRequest productSearchRequest) {
+    List<ProductDTO> getProductsOfShowcase(@Valid ProductSearchRequest productSearchRequest) {
         return productService.getProductsOfShowcase(productSearchRequest);
     }
 

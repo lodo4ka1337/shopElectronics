@@ -1,6 +1,6 @@
-package com.lodo4ka.shopElectronics.persistance.repository;
+package com.lodo4ka.shopElectronics.persistance.repositories;
 
-import com.lodo4ka.shopElectronics.persistance.model.Showcase;
+import com.lodo4ka.shopElectronics.persistance.model.entities.Showcase;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;

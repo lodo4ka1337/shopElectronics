@@ -3,9 +3,9 @@ package com.lodo4ka.shopElectronics.persistance.model.DTO;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.Interfaces.Details;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.Interfaces.Exists;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.Interfaces.New;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.Details;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.Exists;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.New;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;

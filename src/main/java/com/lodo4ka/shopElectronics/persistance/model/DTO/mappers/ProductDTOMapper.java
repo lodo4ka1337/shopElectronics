@@ -1,7 +1,7 @@
-package com.lodo4ka.shopElectronics.persistance.model.DTO.Mapper;
+package com.lodo4ka.shopElectronics.persistance.model.DTO.mappers;
 
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
-import com.lodo4ka.shopElectronics.persistance.model.Product;
+import com.lodo4ka.shopElectronics.persistance.model.entities.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;

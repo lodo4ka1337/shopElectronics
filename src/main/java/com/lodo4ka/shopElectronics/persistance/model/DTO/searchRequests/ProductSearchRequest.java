@@ -1,4 +1,4 @@
-package com.lodo4ka.shopElectronics.persistance.model.DTO;
+package com.lodo4ka.shopElectronics.persistance.model.DTO.searchRequests;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

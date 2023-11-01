@@ -1,7 +1,7 @@
-package com.lodo4ka.shopElectronics.persistance.service;
+package com.lodo4ka.shopElectronics.persistance.services;
 
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
-import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductSearchRequest;
+import com.lodo4ka.shopElectronics.persistance.model.DTO.searchRequests.ProductSearchRequest;
 
 import java.util.List;
 import java.util.UUID;
