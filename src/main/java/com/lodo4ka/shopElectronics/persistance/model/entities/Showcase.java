@@ -1,6 +1,5 @@
 package com.lodo4ka.shopElectronics.persistance.model.entities;
 
-import com.lodo4ka.shopElectronics.persistance.model.entities.Product;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -9,8 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 
+import java.time.LocalDateTime;
 import java.util.Date;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -91,11 +90,11 @@ public class Showcase implements Serializable {
         this.type = type;
     }
 
-    public Date getCreationDate() {
+    public java.util.Date getCreationDate() {
         return creationDate;
     }
 
-    public Date getLastUpdate() {
+    public java.util.Date getLastUpdate() {
         return lastUpdate;
     }
 }

@@ -17,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -105,8 +103,8 @@ public class ShowcaseServiceImpl implements ShowcaseService {
                     creationDate2));
         }
 
-        /*Date modificationDate1 = showcaseSearchRequest.getModificationDate1();
-        Date modificationDate2 = showcaseSearchRequest.getModificationDate2();*/
+/*        Date modificationDate1 = showcaseSearchRequest.getModificationDate1();
+        Date modificationDate2 = showcaseSearchRequest.getModificationDate2();
         Date modificationDate1 = null;
         Date modificationDate2 = null;
         if (modificationDate1 != null
@@ -124,7 +122,7 @@ public class ShowcaseServiceImpl implements ShowcaseService {
             else {
 
             }
-        }
+        }*/
 
         return showcaseRepository.findAll(predicates)
                 .stream()
