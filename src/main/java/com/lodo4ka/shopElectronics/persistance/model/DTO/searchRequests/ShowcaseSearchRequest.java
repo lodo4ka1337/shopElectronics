@@ -22,7 +22,7 @@ public class ShowcaseSearchRequest {
                                  @JsonProperty("createdAfter") String createdAfter,
                                  @JsonProperty("createdBefore") String createdBefore,
                                  @JsonProperty("updatedAfter")String updatedAfter,
-                                 @JsonProperty("updateBefore")String updateBefore) {
+                                 @JsonProperty("updatedBefore")String updateBefore) {
         this.type = type;
         this.address = address;
         this.createdAfter = createdAfter;

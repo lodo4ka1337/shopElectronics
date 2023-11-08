@@ -74,30 +74,28 @@ public class ShowcaseServiceImpl implements ShowcaseService {
         String crDate1 = showcaseSearchRequest.getCreatedAfter();
         String crDate2 = showcaseSearchRequest.getCreatedBefore();
         if (crDate1 != null || crDate2 != null)
-            if (crDate1 != null && crDate2 != null)
-                createDateBetweenPredicate(
-                        crDate1,
-                        crDate2,
-                        criteriaBuilder,
-                        root,
-                        predicates,
-                        Showcase_.creationDate,
-                        "createdAfter",
-                        "createdBefore");
+            createDateBetweenPredicate(
+                    crDate1,
+                    crDate2,
+                    criteriaBuilder,
+                    root,
+                    predicates,
+                    Showcase_.creationDate,
+                    "createdAfter",
+                    "createdBefore");
 
         String modDate1 = showcaseSearchRequest.getUpdatedAfter();
         String modDate2 = showcaseSearchRequest.getUpdateBefore();
         if (modDate1 != null || modDate2 != null)
-            if (modDate1 != null && modDate2 != null)
-                createDateBetweenPredicate(
-                        modDate1,
-                        modDate2,
-                        criteriaBuilder,
-                        root,
-                        predicates,
-                        Showcase_.lastUpdate,
-                        "updatedAfter",
-                        "updatedBefore");
+            createDateBetweenPredicate(
+                    modDate1,
+                    modDate2,
+                    criteriaBuilder,
+                    root,
+                    predicates,
+                    Showcase_.lastUpdate,
+                    "updatedAfter",
+                    "updatedBefore");
 
         criteriaQuery.where(
                 criteriaBuilder.and(predicates.toArray(new Predicate[0])));
@@ -107,50 +105,48 @@ public class ShowcaseServiceImpl implements ShowcaseService {
                 .collect(Collectors.toList());
     }
 
-    private void createDateBetweenPredicate(String date1,
-                                            String date2,
+    private void createDateBetweenPredicate(String dateAfter,
+                                            String dateBefore,
                                             CriteriaBuilder criteriaBuilder,
                                             Root<Showcase> root,
                                             List<Predicate> predicates,
                                             SingularAttribute<Showcase, LocalDate> date,
-                                            String date1Alias,
-                                            String date2Alias) {
+                                            String dateAfterAlias,
+                                            String dateBeforeAlias) {
 
-        if (date1 != null && date2 != null) {
-            boolean date1isValid = true;
-            boolean date2isValid = true;
-            LocalDate localDate1 = null;
-            LocalDate localDate2 = null;
+        boolean dateAfterisValid = true;
+        boolean dateBeforeisValid = true;
+        LocalDate localDateAfter;
+        LocalDate localDateBefore;
 
-            if (dateValidator.isValid(date1))
-                localDate1 = LocalDate.parse(date1);
-            else
-                date1isValid = false;
-
-            if (dateValidator.isValid(date2)) localDate2 = LocalDate.parse(date2);
-            else date2isValid = false;
-
-            if (date1isValid && date2isValid) {
-                Predicate dateBetweenPredicate = criteriaBuilder
-                        .between(root.get(date), localDate1, localDate2);
-                predicates.add(dateBetweenPredicate);
+        if (dateAfter != null) {
+            if (dateValidator.isValid(dateAfter)) {
+                localDateAfter = LocalDate.parse(dateAfter);
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(date), localDateAfter));
             }
-            else {
-                Map<String, Object> parameters = new HashMap<>();
-                if (!date1isValid) parameters.put(date1Alias, date1);
-                if (!date2isValid) parameters.put(date2Alias, date2);
-                throwInvalidDateException(datePattern, parameters);
-            }
+            else dateAfterisValid = false;
         }
-    }
 
-    private void throwInvalidDateException(String datePattern, Map<String, Object> parameters) {
-        ShopElectronicsException exception = new ShopElectronicsException();
-        exception.setErrorStatus(HttpStatus.BAD_REQUEST);
-        exception.setErrorType(ErrorType.CLIENT);
-        ErrorInfo info = ErrorInfoFactory.getInvalidDateErrorInfo(datePattern, parameters);
-        exception.addErrorInfo(info);
-        throw exception;
+        if (dateBefore != null) {
+            if (dateValidator.isValid(dateBefore)) {
+                localDateBefore = LocalDate.parse(dateBefore);
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(date), localDateBefore));
+            }
+            else dateBeforeisValid = false;
+        }
+
+        if (!dateAfterisValid || !dateBeforeisValid) {
+            Map<String, Object> parameters = new HashMap<>();
+            if (!dateAfterisValid) parameters.put(dateAfterAlias, dateAfter);
+            if (!dateBeforeisValid) parameters.put(dateBeforeAlias, dateBefore);
+
+            ShopElectronicsException exception = new ShopElectronicsException();
+            exception.setErrorStatus(HttpStatus.BAD_REQUEST);
+            exception.setErrorType(ErrorType.CLIENT);
+            ErrorInfo info = ErrorInfoFactory.getInvalidDateErrorInfo(datePattern, parameters);
+            exception.addErrorInfo(info);
+            throw exception;
+        }
     }
 
     @Override
