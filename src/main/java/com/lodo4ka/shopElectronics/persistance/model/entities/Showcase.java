@@ -8,8 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,11 +38,11 @@ public class Showcase implements Serializable {
 
     @Column(name = "creation_date", updatable = false)
     @CreatedDate
-    private Date creationDate;
+    private LocalDate creationDate;
 
     @Column(name = "last_modification_date")
     @LastModifiedDate
-    private Date lastUpdate;
+    private LocalDate lastUpdate;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "showcase_id")
@@ -90,11 +89,11 @@ public class Showcase implements Serializable {
         this.type = type;
     }
 
-    public java.util.Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public java.util.Date getLastUpdate() {
+    public LocalDate getLastUpdate() {
         return lastUpdate;
     }
 }

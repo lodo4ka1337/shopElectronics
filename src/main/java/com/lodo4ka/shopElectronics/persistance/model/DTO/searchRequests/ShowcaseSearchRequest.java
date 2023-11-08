@@ -8,27 +8,27 @@ public class ShowcaseSearchRequest {
 
     private final String address;
 
-    private final String creationDate1;
+    private final String createdAfter;
 
-    private final String creationDate2;
+    private final String createdBefore;
 
-    private final String modificationDate1;
+    private final String updatedAfter;
 
-    private final String modificationDate2;
+    private final String updateBefore;
 
     @JsonCreator
     public ShowcaseSearchRequest(@JsonProperty("type") String type,
                                  @JsonProperty("address") String address,
-                                 @JsonProperty("creationDate1") String creationDate1,
-                                 @JsonProperty("creationDate2") String creationDate2,
-                                 @JsonProperty("modificationDate1")String modificationDate1,
-                                 @JsonProperty("modificationDate2")String modificationDate2) {
+                                 @JsonProperty("createdAfter") String createdAfter,
+                                 @JsonProperty("createdBefore") String createdBefore,
+                                 @JsonProperty("updatedAfter")String updatedAfter,
+                                 @JsonProperty("updateBefore")String updateBefore) {
         this.type = type;
         this.address = address;
-        this.creationDate1 = creationDate1;
-        this.creationDate2 = creationDate2;
-        this.modificationDate1 = modificationDate1;
-        this.modificationDate2 = modificationDate2;
+        this.createdAfter = createdAfter;
+        this.createdBefore = createdBefore;
+        this.updatedAfter = updatedAfter;
+        this.updateBefore = updateBefore;
     }
 
     public String getType() {
@@ -39,19 +39,19 @@ public class ShowcaseSearchRequest {
         return address;
     }
 
-    public String getCreationDate1() {
-        return creationDate1;
+    public String getCreatedAfter() {
+        return createdAfter;
     }
 
-    public String getCreationDate2() {
-        return creationDate2;
+    public String getCreatedBefore() {
+        return createdBefore;
     }
 
-    public String getModificationDate1() {
-        return modificationDate1;
+    public String getUpdatedAfter() {
+        return updatedAfter;
     }
 
-    public String getModificationDate2() {
-        return modificationDate2;
+    public String getUpdateBefore() {
+        return updateBefore;
     }
 }

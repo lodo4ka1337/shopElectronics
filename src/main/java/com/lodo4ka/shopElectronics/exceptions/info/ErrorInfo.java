@@ -12,11 +12,7 @@ public class ErrorInfo {
 
     private final LocalDateTime timestamp = LocalDateTime.now();
 
-    private HttpStatus httpStatus;
-
     private Throwable cause;
-
-    private ErrorType errorType;
 
     private ErrorSeverity severity;
 
@@ -35,28 +31,12 @@ public class ErrorInfo {
         return timestamp;
     }
 
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
-    }
-
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
-    }
-
     public Throwable getCause() {
         return cause;
     }
 
     public void setCause(Throwable cause) {
         this.cause = cause;
-    }
-
-    public ErrorType getErrorType() {
-        return errorType;
-    }
-
-    public void setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
     }
 
     public ErrorSeverity getSeverity() {

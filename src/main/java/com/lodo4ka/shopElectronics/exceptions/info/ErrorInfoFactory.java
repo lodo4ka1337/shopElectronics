@@ -10,8 +10,6 @@ import java.util.Map;
 public class ErrorInfoFactory {
     public static ErrorInfo getBadRequestErrorInfo(String userErrorDescription) {
         ErrorInfo info = new ErrorInfo();
-        info.setHttpStatus(HttpStatus.BAD_REQUEST);
-        info.setErrorType(ErrorType.CLIENT);
         info.setSeverity(ErrorSeverity.ERROR);
         info.setUserErrorDescription(userErrorDescription);
         info.setErrorDescription("Incorrect user request input.");

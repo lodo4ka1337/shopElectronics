@@ -4,6 +4,7 @@ import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfo;
 import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorType;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopElectronicsException extends RuntimeException {
@@ -12,7 +13,7 @@ public class ShopElectronicsException extends RuntimeException {
 
     ErrorType errorType = ErrorType.INTERNAL;
 
-    List<ErrorInfo> errorInfoList;
+    List<ErrorInfo> errorInfoList = new ArrayList<>();
 
     public ShopElectronicsException() {
     }
