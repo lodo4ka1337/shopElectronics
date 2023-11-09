@@ -66,7 +66,7 @@ public class ShowcasesController {
     }
 
     @PutMapping("/products/update")
-    public ProductDTO updateProduct(@Validated(Exists.class) @RequestBody ProductDTO productUpdateRequest) {
+    public ProductDTO updateProduct(@Validated(Exists.class) ProductDTO productUpdateRequest) {
         return productService.updateProduct(productUpdateRequest);
     }
 

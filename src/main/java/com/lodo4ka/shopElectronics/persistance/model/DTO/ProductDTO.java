@@ -7,6 +7,7 @@ import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.Details;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.Exists;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.New;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class ProductDTO {
 
     @NotNull(groups = {New.class})
     @JsonView({Details.class})
+    @Min(value = 0, groups = {New.class})
     private final Double price;
 
     @NotNull(groups = {New.class})
@@ -37,6 +39,7 @@ public class ProductDTO {
 
     @NotNull(groups = {New.class})
     @JsonView({Details.class})
+    @Min(value = 0, groups = {New.class})
     private final Integer positionOnShowcase;
 
     @JsonView({Details.class})

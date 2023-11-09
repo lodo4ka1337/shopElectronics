@@ -69,7 +69,6 @@ databaseChangeLog:
                   name: showcase_id
                   type: UUID
                   constraints:
-                    nullable: false
                     foreignKeyName: "showcase_id_fk"
                     references: showcases(id)
               - column:
