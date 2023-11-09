@@ -7,24 +7,24 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class ProductSearchRequest {
-    @NotNull
+
     private final UUID showcaseId;
 
     private final String type;
 
-    private final Double price1;
+    private final Double priceMoreThan;
 
-    private final Double price2;
+    private final Double priceLessThan;
 
     @JsonCreator
     public ProductSearchRequest(@JsonProperty("showcaseId") UUID showcaseId,
                                 @JsonProperty("type") String type,
-                                @JsonProperty("price1") Double price1,
-                                @JsonProperty("price2") Double price2) {
+                                @JsonProperty("priceMoreThan") Double priceMoreThan,
+                                @JsonProperty("priceLessThan") Double priceLessThan) {
         this.showcaseId = showcaseId;
         this.type = type;
-        this.price1 = price1;
-        this.price2 = price2;
+        this.priceMoreThan = priceMoreThan;
+        this.priceLessThan = priceLessThan;
     }
 
     public UUID getShowcaseId() {
@@ -35,12 +35,12 @@ public class ProductSearchRequest {
         return type;
     }
 
-    public Double getPrice1() {
-        return price1;
+    public Double getPriceMoreThan() {
+        return priceMoreThan;
     }
 
-    public Double getPrice2() {
-        return price2;
+    public Double getPriceLessThan() {
+        return priceLessThan;
     }
 
 }

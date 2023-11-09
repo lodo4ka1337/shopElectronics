@@ -59,17 +59,15 @@ public class ShowcaseServiceImpl implements ShowcaseService {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (showcaseSearchRequest.getType() != null) {
-            Predicate typePredicate = criteriaBuilder
-                    .equal(root.get(Showcase_.type), showcaseSearchRequest.getType());
-            predicates.add(typePredicate);
-        }
+        if (showcaseSearchRequest.getType() != null)
+            predicates.add(
+                criteriaBuilder.equal(
+                        root.get(Showcase_.type), showcaseSearchRequest.getType()));
 
-        if (showcaseSearchRequest.getAddress() != null) {
-            Predicate addressPredicate = criteriaBuilder
-                    .equal(root.get(Showcase_.address), showcaseSearchRequest.getAddress());
-            predicates.add(addressPredicate);
-        }
+        if (showcaseSearchRequest.getAddress() != null)
+            predicates.add(
+                    criteriaBuilder.equal(
+                            root.get(Showcase_.address), showcaseSearchRequest.getAddress()));
 
         String crDate1 = showcaseSearchRequest.getCreatedAfter();
         String crDate2 = showcaseSearchRequest.getCreatedBefore();
@@ -114,31 +112,35 @@ public class ShowcaseServiceImpl implements ShowcaseService {
                                             String dateAfterAlias,
                                             String dateBeforeAlias) {
 
-        boolean dateAfterisValid = true;
-        boolean dateBeforeisValid = true;
+        boolean dateAfterIsValid = true;
+        boolean dateBeforeIsValid = true;
         LocalDate localDateAfter;
         LocalDate localDateBefore;
 
         if (dateAfter != null) {
             if (dateValidator.isValid(dateAfter)) {
                 localDateAfter = LocalDate.parse(dateAfter);
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(date), localDateAfter));
+                predicates.add(
+                        criteriaBuilder.greaterThanOrEqualTo(
+                                root.get(date), localDateAfter));
             }
-            else dateAfterisValid = false;
+            else dateAfterIsValid = false;
         }
 
         if (dateBefore != null) {
             if (dateValidator.isValid(dateBefore)) {
                 localDateBefore = LocalDate.parse(dateBefore);
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(date), localDateBefore));
+                predicates.add(
+                        criteriaBuilder.lessThanOrEqualTo(
+                                root.get(date), localDateBefore));
             }
-            else dateBeforeisValid = false;
+            else dateBeforeIsValid = false;
         }
 
-        if (!dateAfterisValid || !dateBeforeisValid) {
+        if (!dateAfterIsValid || !dateBeforeIsValid) {
             Map<String, Object> parameters = new HashMap<>();
-            if (!dateAfterisValid) parameters.put(dateAfterAlias, dateAfter);
-            if (!dateBeforeisValid) parameters.put(dateBeforeAlias, dateBefore);
+            if (!dateAfterIsValid) parameters.put(dateAfterAlias, dateAfter);
+            if (!dateBeforeIsValid) parameters.put(dateBeforeAlias, dateBefore);
 
             ShopElectronicsException exception = new ShopElectronicsException();
             exception.setErrorStatus(HttpStatus.BAD_REQUEST);

@@ -3,7 +3,9 @@ package com.lodo4ka.shopElectronics.exceptions.exceptionHandler;
 import com.lodo4ka.shopElectronics.exceptions.customExceptions.ShopElectronicsException;
 import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfo;
 import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfoFactory;
+import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorType;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,13 +24,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public void handleRequestBodyValidationExceptions(MethodArgumentNotValidException e) {
+    public ResponseEntity<List<ErrorInfo>> handleRequestBodyValidationExceptions(MethodArgumentNotValidException e) {
 
         ShopElectronicsException exception = new ShopElectronicsException();
+        exception.setErrorStatus(HttpStatus.BAD_REQUEST);
+        exception.setErrorType(ErrorType.CLIENT);
 
         ErrorInfo info = ErrorInfoFactory.getBadRequestErrorInfo("Invalid request body. " +
                 "Make sure listed parameters are correct.");
-        info.setCause(e);
         Map<String, Object> parameters = info.getParameters();
         e.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
@@ -37,7 +40,7 @@ public class GlobalExceptionHandler {
         });
 
         exception.addErrorInfo(info);
-        throw exception;
+        return new ResponseEntity<>(exception.getErrorInfoList(), exception.getErrorStatus());
     }
 
     @ExceptionHandler()
@@ -47,7 +50,6 @@ public class GlobalExceptionHandler {
 
         ErrorInfo info = ErrorInfoFactory.getBadRequestErrorInfo("Invalid request parameters. " +
                 "Make sure all parameters are correct.");
-        info.setCause(e);
 
         exception.addErrorInfo(info);
         throw exception;

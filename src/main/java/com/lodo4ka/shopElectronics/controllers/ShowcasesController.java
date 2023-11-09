@@ -50,28 +50,30 @@ public class ShowcasesController {
     }
 
     @DeleteMapping("/showcases/delete")
-    public void deleteShowcase(@RequestParam(value = "id") UUID id) {
+    public String  deleteShowcase(@RequestParam(value = "id") UUID id) {
         showcaseService.deleteShowcaseById(id);
+        return "Showcase with id = " + id + " deleted successfully.";
     }
 
     @GetMapping("/products/get")
-    List<ProductDTO> getProductsOfShowcase(@Valid ProductSearchRequest productSearchRequest) {
+    public List<ProductDTO> getProductsOfShowcase(@Valid ProductSearchRequest productSearchRequest) {
         return productService.getProductsOfShowcase(productSearchRequest);
     }
 
     @PostMapping("/products/add")
-    ProductDTO addProduct(@Validated(New.class) @RequestBody ProductDTO productAddRequest) {
+    public ProductDTO addProduct(@Validated(New.class) @RequestBody ProductDTO productAddRequest) {
         return productService.addProduct(productAddRequest);
     }
 
     @PutMapping("/products/update")
-    ProductDTO updateProduct(@Validated(Exists.class) @RequestBody ProductDTO productUpdateRequest) {
+    public ProductDTO updateProduct(@Validated(Exists.class) @RequestBody ProductDTO productUpdateRequest) {
         return productService.updateProduct(productUpdateRequest);
     }
 
     @DeleteMapping("/products/delete")
-    void deleteProduct(@RequestParam(value = "id") UUID id) {
+    public String deleteProduct(@RequestParam(value = "id") UUID id) {
         productService.deleteProduct(id);
+        return "Product with id = " + id + " deleted successfully.";
     }
 
 }

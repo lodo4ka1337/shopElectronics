@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import java.util.UUID;
 
@@ -39,15 +39,15 @@ public class Product implements Serializable {
     private UUID showcaseId;
 
     @Column(name = "position_on_showcase", nullable = false)
-    private int positionOnShowcase;
+    private Integer positionOnShowcase;
 
     @Column(name = "date_of_placing", updatable = false)
     @CreatedDate
-    private Date dateOfPlacing;
+    private LocalDate dateOfPlacing;
 
     @Column(name = "last_modification_date")
     @LastModifiedDate
-    private Date lastUpdate;
+    private LocalDate lastUpdate;
 
     public Product() {
     }
@@ -100,27 +100,27 @@ public class Product implements Serializable {
         this.showcaseId = showcase_id;
     }
 
-    public int getPositionOnShowcase() {
+    public Integer getPositionOnShowcase() {
         return positionOnShowcase;
     }
 
-    public void setPositionOnShowcase(int position_on_showcase) {
+    public void setPositionOnShowcase(Integer position_on_showcase) {
         this.positionOnShowcase = position_on_showcase;
     }
 
-    public Date getDateOfPlacing() {
+    public LocalDate getDateOfPlacing() {
         return dateOfPlacing;
     }
 
-    public void setDateOfPlacing(Date date_of_placing) {
+    public void setDateOfPlacing(LocalDate date_of_placing) {
         this.dateOfPlacing = date_of_placing;
     }
 
-    public Date getLastUpdate() {
+    public LocalDate getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date last_update_date) {
+    public void setLastUpdate(LocalDate last_update_date) {
         this.lastUpdate = last_update_date;
     }
 

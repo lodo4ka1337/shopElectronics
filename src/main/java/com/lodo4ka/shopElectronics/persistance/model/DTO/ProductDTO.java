@@ -9,7 +9,7 @@ import com.lodo4ka.shopElectronics.persistance.model.DTO.interfaces.New;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class ProductDTO {
@@ -39,13 +39,11 @@ public class ProductDTO {
     @JsonView({Details.class})
     private final Integer positionOnShowcase;
 
-    @Null(groups = {New.class, Exists.class})
     @JsonView({Details.class})
-    private final Date dateOfPlacing;
+    private final LocalDate dateOfPlacing;
 
-    @Null(groups = {New.class, Exists.class})
     @JsonView({Details.class})
-    private final Date lastModificationDate;
+    private final LocalDate lastModificationDate;
 
     @JsonCreator
     public ProductDTO(@JsonProperty("id") UUID id,
@@ -54,8 +52,8 @@ public class ProductDTO {
                       @JsonProperty("price") Double price,
                       @JsonProperty("showcaseId") UUID showcaseId,
                       @JsonProperty("positionOnShowcase") Integer positionOnShowcase,
-                      @JsonProperty("dateOfPlacing")Date dateOfPlacing,
-                      @JsonProperty("lastModificationDate")Date lastModificationDate) {
+                      @JsonProperty("dateOfPlacing") LocalDate dateOfPlacing,
+                      @JsonProperty("lastModificationDate") LocalDate lastModificationDate) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -90,11 +88,11 @@ public class ProductDTO {
         return positionOnShowcase;
     }
 
-    public Date getDateOfPlacing() {
+    public LocalDate getDateOfPlacing() {
         return dateOfPlacing;
     }
 
-    public Date getLastModificationDate() {
+    public LocalDate getLastModificationDate() {
         return lastModificationDate;
     }
 }

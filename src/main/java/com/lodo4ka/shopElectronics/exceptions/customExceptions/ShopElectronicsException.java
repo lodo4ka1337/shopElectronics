@@ -18,11 +18,6 @@ public class ShopElectronicsException extends RuntimeException {
     public ShopElectronicsException() {
     }
 
-    public ShopElectronicsException(ErrorType errorType, HttpStatus errorStatus) {
-        this.errorType = errorType;
-        this.errorStatus = errorStatus;
-    }
-
     public void addErrorInfo(ErrorInfo errorInfo) {
         this.errorInfoList.add(errorInfo);
     }

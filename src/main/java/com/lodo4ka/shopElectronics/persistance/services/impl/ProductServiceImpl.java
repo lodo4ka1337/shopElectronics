@@ -1,20 +1,32 @@
 package com.lodo4ka.shopElectronics.persistance.services.impl;
 
+import com.lodo4ka.shopElectronics.exceptions.customExceptions.ShopElectronicsException;
+import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfo;
+import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfoFactory;
+import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorType;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.mappers.ProductDTOMapper;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.searchRequests.ProductSearchRequest;
 import com.lodo4ka.shopElectronics.persistance.model.entities.Product;
 
-import com.lodo4ka.shopElectronics.persistance.model.entities.QProduct;
+import com.lodo4ka.shopElectronics.persistance.model.entities.Product_;
+import com.lodo4ka.shopElectronics.persistance.model.entities.Showcase;
 import com.lodo4ka.shopElectronics.persistance.repositories.ProductRepository;
 import com.lodo4ka.shopElectronics.persistance.services.ProductService;
-import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,41 +36,49 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductDTOMapper productDTOMapper;
 
+    private final EntityManager em;
+
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, ProductDTOMapper productDTOMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductDTOMapper productDTOMapper, EntityManager em) {
         this.productRepository = productRepository;
         this.productDTOMapper = productDTOMapper;
+        this.em = em;
     }
 
     @Override
     public List<ProductDTO> getProductsOfShowcase(ProductSearchRequest productSearchRequest) {
-        QProduct product = QProduct.product;
-        BooleanBuilder predicates = new BooleanBuilder();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
 
-        predicates.and(product.showcaseId.eq(productSearchRequest.getShowcaseId()));
+        List<Predicate> predicates = new ArrayList<>();
 
-        if (productSearchRequest.getType() != null) {
-            predicates.and(product.type.eq(productSearchRequest.getType()));
+        if (productSearchRequest.getShowcaseId() != null)
+            predicates.add(
+                    criteriaBuilder.equal(
+                            root.get(Product_.id), productSearchRequest.getShowcaseId()));
+
+        if (productSearchRequest.getType() != null)
+            predicates.add(
+                    criteriaBuilder.equal(
+                            root.get(Product_.type), productSearchRequest.getType()));
+
+        Double priceMoreThan = productSearchRequest.getPriceMoreThan();
+        Double priceLessThan = productSearchRequest.getPriceLessThan();
+        if (priceMoreThan != null || priceLessThan != null) {
+            if (priceMoreThan != null)
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                        root.get(Product_.price), priceMoreThan));
+
+            if (priceLessThan != null)
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(
+                        root.get(Product_.price), priceLessThan));
         }
 
-        Double price1 = productSearchRequest.getPrice1();
-        Double price2 = productSearchRequest.getPrice2();
-        if (price1 != null || price2 != null) {
-            if (price1 != null && price2 != null) {
-                if (price1 < price2) {
-                    predicates.and(product.price.between(price1, price2));
-                }
-                else {
-
-                }
-            }
-            else {
-
-            }
-        }
-
-        return productRepository.findAll(predicates)
-                .stream()
+        criteriaQuery.where(
+                criteriaBuilder.and(predicates.toArray(new Predicate[0])));
+        TypedQuery<Product> query = em.createQuery(criteriaQuery);
+        return query.getResultList().stream()
                 .map(productDTOMapper)
                 .collect(Collectors.toList());
     }

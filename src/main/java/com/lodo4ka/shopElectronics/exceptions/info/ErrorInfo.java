@@ -1,8 +1,6 @@
 package com.lodo4ka.shopElectronics.exceptions.info;
 
 import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorSeverity;
-import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorType;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -11,8 +9,6 @@ import java.util.Map;
 public class ErrorInfo {
 
     private final LocalDateTime timestamp = LocalDateTime.now();
-
-    private Throwable cause;
 
     private ErrorSeverity severity;
 
@@ -29,14 +25,6 @@ public class ErrorInfo {
 
     public LocalDateTime getTimestamp() {
         return timestamp;
-    }
-
-    public Throwable getCause() {
-        return cause;
-    }
-
-    public void setCause(Throwable cause) {
-        this.cause = cause;
     }
 
     public ErrorSeverity getSeverity() {
