@@ -1,15 +1,15 @@
 # shopElectronics
 API that stores information about electronics shops showcases and its related products in database.
 
-Подключить на свободный порт PostgreSQL.<br />
-По умолчанию стоит стандартный порт localhost:5432,<br />
-название БД - postgres,<br />
-username - postgres,<br />
-password - 1337.<br />
+Подключить на свободный порт PostgreSQL (настройки находятся в файле application.properties).<br />
+По умолчанию стоит стандартный порт localhost:5432<br />
+название БД - postgres<br />
+username - postgres<br />
+password - 1337<br />
 <br />
 Liquibase changeset-ы находятся в файле db/changelog/db.changelog-master.yaml<br />
 <br />
-Описание реализованных методов (тестирование проводилось в Postman):<br />
+Описание реализованных методов (тестирование проводилось в Postman через стандартный URL http://localhost:8080):<br />
 - Получить все витрины (/showcases/get/all)
 - - Фильтрация по типу (/showcases/get/type)<br />
     Параметры:<br /> type - String
@@ -37,16 +37,26 @@ Liquibase changeset-ы находятся в файле db/changelog/db.changelo
     "name": "qwe",<br />
     "address": "qwer",<br />
     "type": "qwerty"<br />
-  }
+  }<br />
+    (Прим.:<br />
+name - String<br />
+address - String<br />
+type - String)
 - Добавить товар на витрину (/products/add)<br />
   Тело запроса (пример в формате JSON):<br />
   {<br />
       "name": "q",<br />
       "type": "qw",<br />
-      "price": 14,<br />
+      "price": 14.5,<br />
       "showcaseId": "69a9948b-c626-4614-b1e2-8d5646937585",<br />
       "positionOnShowcase": 5<br />
-  }
+  }<br />
+  (Прим.:<br />
+name - String<br />
+type - String<br />
+price - double<br />
+showcaseId - UUID<br />
+positionOnShowcase - int)
 - Изменение данных витрины (/showcases/update)<br />
   Параметры:<br /> id - UUID<br />
              name - String - наличие параметра опционально<br />
