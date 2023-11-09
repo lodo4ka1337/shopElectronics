@@ -1,75 +1,83 @@
-# shopElectronics
-API that stores information about electronics shops showcases and its related products in database.
+# ShopElectronics
+**API that stores information about electronics shops showcases and its related products in database.**
 
-Подключить на свободный порт PostgreSQL (настройки находятся в файле application.properties).<br />
-По умолчанию стоит стандартный порт localhost:5432<br />
-название БД - postgres<br />
+## Default configuration
+Application configuration is located in application.properties
+
+Datasource driver - org.postgresql.Driver<br />
+Database name - postgres<br />
 username - postgres<br />
 password - 1337<br />
-<br />
-Liquibase changeset-ы находятся в файле db/changelog/db.changelog-master.yaml<br />
-<br />
-Описание реализованных методов (тестирование проводилось в Postman через стандартный URL http://localhost:8080):<br />
-- Получить все витрины (/showcases/get/all)
-- - Фильтрация по типу (/showcases/get/type)<br />
-    Параметры:<br /> type - String
-- - Фильтрация по адресу (/showcases/get/address)<br />
-    Параметры:<br /> address - String
-- - Фильтрация по периоду создания (/showcases/get/creation_date_period)<br />
-    Параметры:<br /> date1 - Date (в SQL формате, н-р: 2000-01-01)<br />
-							 date2 - Date<br />
-							 (Прим.: date1 < date2)
-- - Фильтрация по последней актуализации (/showcases/get/last_update_period)<br />
-    Параметры:<br /> date1 - Date (в SQL формате, н-р: 2000-01-01)<br />
-                date2 - Date<br />
-                (Прим.: date1 < date2)
-- Получить все товары витрины (/products/get/all)
-- - Фильтрация по типу товара (/products/get/type)<br />
-     Параметры:<br /> showcaseId - UUID<br />
-                type - String
-- - Фильтрация по диапазону цен (/products/get/price)<br />
-     Параметры:<br /> showcaseId - UUID<br />
-                price1 - double<br />
-                price2 - double
-- Добавить витрину (/showcases/add)<br />
-  Тело запроса (пример в формате JSON):<br />
-  {<br />
-    "name": "qwe",<br />
-    "address": "qwer",<br />
-    "type": "qwerty"<br />
-  }<br />
-    (Прим.:<br />
-name - String<br />
-address - String<br />
-type - String)
-- Добавить товар на витрину (/products/add)<br />
-  Тело запроса (пример в формате JSON):<br />
-  {<br />
-      "name": "q",<br />
-      "type": "qw",<br />
-      "price": 14.5,<br />
-      "showcaseId": "69a9948b-c626-4614-b1e2-8d5646937585",<br />
-      "positionOnShowcase": 5<br />
-  }<br />
-  (Прим.:<br />
-name - String<br />
-type - String<br />
-price - double<br />
-showcaseId - UUID<br />
-positionOnShowcase - int)
-- Изменение данных витрины (/showcases/update)<br />
-  Параметры:<br /> id - UUID<br />
-             name - String - наличие параметра опционально<br />
-             address - String - наличие параметра опционально<br />
-             type - String - наличие параметра опционально
-- Изменение данных товара (/products/update)<br />
-  Параметры:<br /> id - UUID<br />
-             name - String - наличие параметра опционально<br />
-             type - String - наличие параметра опционально<br />
-             price - double - наличие параметра опционально<br />
-             showcaseId - UUID - наличие параметра опционально<br />
-             positionOnShowcase - int - наличие параметра опционально
-- Удаление витрины (/showcases/delete)<br />
-  Параметры: id - UUID
-- Удаление товара (/products/delete)<br />
-  Параметры: id - UUID
+
+Liquibase changesets are located in db/changelog/db.changelog-master.yaml<br />
+
+## API Methods Description
+(Testing was performed with Postman)
+
+- Get all showcases (/showcases/get)
+	- Showcase search request filters
+	<br />Request parameters:
+	<br />type - String
+	<br />address - String
+	<br />createdAfter - Date
+	<br />createdBefore - Date
+	<br />updatedAfter - Date
+	<br />updatedBefore - Date
+	<br />(Note: enter dates in a standard ISO pattern, e.g 2000-01-01)
+- Get all products on a showcase (/products/get)
+	- Product search request filters
+	<br />Request parameters:
+	<br />showcaseId - UUID - mandatory parameter
+	<br />type - String
+	<br />priceMoreThan - double
+	<br />priceLessThan - double
+- Add showcase (/showcases/add)<br />
+	- Request body (example is in JSON):
+<pre>
+	{
+	   "name": "qwe",
+	   "address": "qwer"
+	   "type": "qwerty"
+	}
+</pre>
+    (Note:<br />
+    name - String<br />
+    address - String<br />
+    type - String)
+- Add product to a showcase (/products/add)<br />
+	- Request body (example is in JSON):<br />
+<pre>
+	{
+	   "name": "q",
+	   "type": "qw",
+	   "price": 14.5,
+	   "showcaseId": "69a9948b-c626-4614-b1e2-8d5646937585",
+	   "positionOnShowcase": 5
+	}
+</pre>
+    (Note:<br />
+    name - String<br />
+    type - String<br />
+    price - double<br />
+    showcaseId - UUID<br />
+    positionOnShowcase - int)
+- Update showcase (/showcases/update)<br />
+	- Request parameters:<br />
+	id - UUID - mandatory parameter<br />
+  	name - String<br />
+  	address - String<br />
+  	type - String
+- Update product on a showcase (/products/update)<br />
+	- Request parameters:<br />
+	id - UUID - mandatory parameter<br />
+	name - String<br />
+  	type - String<br />
+  	price - double<br />
+   	showcaseId - UUID<br />
+ 	positionOnShowcase - int
+- Delete showcase (/showcases/delete)
+	- Request parameters:<br />
+ 	id - UUID
+- Delete product (/products/delete)
+	- Request parameters:<br />
+	id - UUID<br />
