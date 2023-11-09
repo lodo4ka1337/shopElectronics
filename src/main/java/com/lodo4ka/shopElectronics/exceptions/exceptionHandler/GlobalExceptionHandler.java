@@ -6,8 +6,6 @@ import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfoFactory;
 import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorType;
 import org.hibernate.exception.ConstraintViolationException;
 import org.jetbrains.annotations.NotNull;
-import org.postgresql.util.PSQLException;
-import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +61,6 @@ public class GlobalExceptionHandler {
         ShopElectronicsException exception = new ShopElectronicsException();
         exception.setErrorStatus(HttpStatus.BAD_REQUEST);
         exception.setErrorType(ErrorType.CLIENT);
-        String p = e.getSQLException().getMessage();
         ErrorInfo info = ErrorInfoFactory.getBadRequestErrorInfo(
                 "Invalid SQL request. " + e.getSQLException().getMessage());
         exception.addErrorInfo(info);

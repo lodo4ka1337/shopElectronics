@@ -22,12 +22,6 @@ public class ShopElectronicsException extends RuntimeException {
         this.errorInfoList.add(errorInfo);
     }
 
-    public ErrorInfo addErrorInfo() {
-        ErrorInfo info = new ErrorInfo();
-        this.errorInfoList.add(info);
-        return info;
-    }
-
     public List<ErrorInfo> getErrorInfoList() {
         return this.errorInfoList;
     }

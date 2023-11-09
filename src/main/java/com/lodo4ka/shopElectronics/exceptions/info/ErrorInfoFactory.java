@@ -1,10 +1,7 @@
 package com.lodo4ka.shopElectronics.exceptions.info;
 
 import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorSeverity;
-import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorType;
-import org.springframework.http.HttpStatus;
 
-import java.util.List;
 import java.util.Map;
 
 public class ErrorInfoFactory {
