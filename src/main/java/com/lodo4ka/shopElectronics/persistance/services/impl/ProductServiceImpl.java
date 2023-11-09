@@ -1,20 +1,14 @@
 package com.lodo4ka.shopElectronics.persistance.services.impl;
 
-import com.lodo4ka.shopElectronics.exceptions.customExceptions.ShopElectronicsException;
-import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfo;
-import com.lodo4ka.shopElectronics.exceptions.info.ErrorInfoFactory;
-import com.lodo4ka.shopElectronics.exceptions.info.utils.ErrorType;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.mappers.ProductDTOMapper;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.ProductDTO;
 import com.lodo4ka.shopElectronics.persistance.model.DTO.searchRequests.ProductSearchRequest;
 import com.lodo4ka.shopElectronics.persistance.model.entities.Product;
 
 import com.lodo4ka.shopElectronics.persistance.model.entities.Product_;
-import com.lodo4ka.shopElectronics.persistance.model.entities.Showcase;
 import com.lodo4ka.shopElectronics.persistance.repositories.ProductRepository;
 import com.lodo4ka.shopElectronics.persistance.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +18,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.SingularAttribute;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -56,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
         if (productSearchRequest.getShowcaseId() != null)
             predicates.add(
                     criteriaBuilder.equal(
-                            root.get(Product_.id), productSearchRequest.getShowcaseId()));
+                            root.get(Product_.showcaseId), productSearchRequest.getShowcaseId()));
 
         if (productSearchRequest.getType() != null)
             predicates.add(

@@ -15,7 +15,7 @@ public class Product_ {
 
     public static volatile SingularAttribute<Product, Double> price;
 
-    public static volatile SingularAttribute<Product, UUID> ShowcaseId;
+    public static volatile SingularAttribute<Product, UUID> showcaseId;
 
     public static volatile SingularAttribute<Product, Integer> positionOnShowcase;
 

@@ -30,12 +30,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: creation_date
-                  type: timestamp
+                  type: date
                   constraints:
                     nullable: false
               - column:
                   name: last_modification_date
-                  type: timestamp
+                  type: date
 
   - changeSet:
       id: 2
@@ -79,12 +79,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: date_of_placing
-                  type: timestamp
+                  type: date
                   constraints:
                     nullable: false
               - column:
                   name: last_modification_date
-                  type: timestamp
+                  type: date
 
   - changeSet:
       id: 3

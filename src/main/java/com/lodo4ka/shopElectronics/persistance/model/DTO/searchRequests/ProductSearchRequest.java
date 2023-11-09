@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class ProductSearchRequest {
 
+    @NotNull
     private final UUID showcaseId;
 
     private final String type;
