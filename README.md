@@ -1,5 +1,5 @@
 # ShopElectronics
-**API that stores information about electronics shops showcases and its related products in database.**
+API that stores information about electronics shops showcases and its related products in database.
 
 ## Default configuration
 Application configuration is located in application.properties
