@@ -20,13 +20,13 @@ import java.util.UUID;
 
 @Validated
 @RestController
-public class ShowcasesController {
+public class ShopElectronicsController {
     private final ShowcaseService showcaseService;
 
     private final ProductService productService;
 
     @Autowired
-    public ShowcasesController(ShowcaseService showcaseService, ProductService productService) {
+    public ShopElectronicsController(ShowcaseService showcaseService, ProductService productService) {
         this.showcaseService = showcaseService;
         this.productService = productService;
     }
